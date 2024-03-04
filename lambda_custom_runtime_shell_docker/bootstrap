@@ -57,16 +57,11 @@ send_error_to_invocation() {
 }
 
 # Check if at least one argument is provided
-if [ $# -gt 0 ]; then
-    lambda_handler=$1
-    echo "Lambda Handler: $lambda_handler"
-else
-    echo "Error: No argument provided. Please specify a lambda handler."
-    exit 1
-fi
+_HANDLER=$1
+echo "Lambda Handler: $_HANDLER"
 
 # Initialization - load function handler using the function
-load_handler_function "$LAMBDA_TASK_ROOT" "$lambda_handler"
+load_handler_function "$LAMBDA_TASK_ROOT" "$_HANDLER"
 
 # Processing
 while true
@@ -81,7 +76,7 @@ do
     REQUEST_ID=$(extract_request_id "$HEADERS")
 
     # Run the handler function using the function
-    RESPONSE=$(run_handler "$lambda_handler" "$EVENT_DATA")
+    RESPONSE=$(run_handler "$_HANDLER" "$EVENT_DATA")
 
     # Log the RESPONSE
     echo "Handler response: $RESPONSE"
