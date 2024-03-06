@@ -1,0 +1,95 @@
+#!/bin/sh
+
+set -euo pipefail
+
+load_handler_function() {
+    local LAMBDA_TASK_ROOT=$1
+    local _HANDLER=$2
+    source $LAMBDA_TASK_ROOT/"$(echo $_HANDLER | cut -d. -f1).sh"
+}
+
+get_next_event() {
+    local HEADERS=$1
+    local AWS_LAMBDA_RUNTIME_API=$2
+    curl -sS -LD "$HEADERS" "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next"
+}
+
+extract_request_id() {
+    local HEADERS=$1
+    grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2
+}
+
+run_handler() {
+    local _HANDLER=$1
+    local EVENT_DATA=$2
+    $(echo "$_HANDLER" | cut -d. -f2) "$EVENT_DATA"
+}
+
+store_future_headers_info() {
+    mktemp
+}
+
+send_response_to_invocation() {
+    local AWS_LAMBDA_RUNTIME_API=$1
+    local REQUEST_ID=$2
+    local RESPONSE=$3
+
+    curl "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response" -d "$RESPONSE"
+}
+
+send_error_to_invocation() {
+    local AWS_LAMBDA_RUNTIME_API=$1
+    local REQUEST_ID=$2
+    local ERROR_RESPONSE=$3
+
+    TEMP_FILE=$(mktemp)
+    HTTP_STATUS=$(curl -s -o $TEMP_FILE -w "%{http_code}" -d "$ERROR_RESPONSE" "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/error")
+    RESPONSE_BODY=$(cat $TEMP_FILE)
+    rm $TEMP_FILE
+    
+    echo "/error response status: $HTTP_STATUS"
+    if [ "$HTTP_STATUS" = 202 ]; then
+        echo "succeeded to invoke /error API"
+    else
+        echo "failed to invoke /error API"
+        echo "failed response body: $RESPONSE_BODY"
+    fi    
+}
+
+# Check if at least one argument is provided
+_HANDLER=$1
+echo "Lambda Handler: $_HANDLER"
+
+# Initialization - load function handler using the function
+load_handler_function "$LAMBDA_TASK_ROOT" "$_HANDLER"
+
+# Processing
+while true
+do
+    # Create a temporary file for future headers info using the function
+    HEADERS=$(store_future_headers_info)
+    
+    # Get the next event using the function
+    EVENT_DATA=$(get_next_event "$HEADERS" "$AWS_LAMBDA_RUNTIME_API")
+
+    # Extract request ID using the function
+    REQUEST_ID=$(extract_request_id "$HEADERS")
+
+    # Run the handler function using the function
+    RESPONSE=$(run_handler "$_HANDLER" "$EVENT_DATA")
+
+    # Log the RESPONSE
+    echo "Handler response: $RESPONSE"
+    # Extracting the type value using shell string manipulation
+    STATUS_CODE=$(echo $RESPONSE | sed -e 's/.*"status":"\([^"]*\)".*/\1/')
+    echo "Handler response - status: $STATUS_CODE"
+
+    # Send the response using the function
+    # Determine response type and send accordingly
+    if [ "$STATUS_CODE" = "200" ]; then
+        send_response_to_invocation "$AWS_LAMBDA_RUNTIME_API" "$REQUEST_ID" "$RESPONSE"
+    else
+        ERROR_RESPONSE='{\"errorMessage\" : \"Server Error.\", \"errorType\" : \"ServerInternalError\"}'
+        send_error_to_invocation "$AWS_LAMBDA_RUNTIME_API" "$REQUEST_ID" "$ERROR_RESPONSE"
+    fi
+done
