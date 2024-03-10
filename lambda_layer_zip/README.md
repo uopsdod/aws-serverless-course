@@ -2,11 +2,11 @@
 
 # 設定環境參數
 AWS_ACCOUNT=659104334423
-LAYER_NAME="lambda_python_library"
-LAYER_ZIP_FILE="lambda_python_library.zip"
-FUNCTION_NAME="lambda_only_function"
+LAYER_NAME="lambda_layer_python_library"
+LAYER_ZIP_FILE="lambda_layer_python_library.zip"
+FUNCTION_NAME="lambda_function_only"
 HANDLER_NAME="handler"
-FUNCTION_ZIP_FILE="lambda_only_function.zip"
+FUNCTION_ZIP_FILE="lambda_function_only.zip"
 
 # 安裝第三方套件
 python -m venv venv
@@ -20,27 +20,23 @@ YOUR_WORK_FOLDER=$(pwd)
 echo $YOUR_WORK_FOLDER
 cd venv/lib/python3.9/site-packages/
 rm -f ${YOUR_WORK_FOLDER}/${LAYER_ZIP_FILE}
-sudo zip -r ${YOUR_WORK_FOLDER}/${LAYER_ZIP_FILE} ./
+zip -r ${YOUR_WORK_FOLDER}/${LAYER_ZIP_FILE} ./
 cd ${YOUR_WORK_FOLDER}
 ls -lh
 
 # 建立 Lambda Layer 
 aws lambda publish-layer-version \
     --layer-name $LAYER_NAME \
-    --zip-file fileb://$LAYER_ZIP_FILE \
-
-
-
+    --zip-file fileb://$LAYER_ZIP_FILE
 
 # 打包程式碼
-sudo zip -g ${ZIP_FILE} ${FUNCTION_NAME}.py
-unzip -l ${ZIP_FILE} | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024 " MB"}'
- - 預期大於 3 MB
+rm $FUNCTION_ZIP_FILE
+zip $FUNCTION_ZIP_FILE ${FUNCTION_NAME}.py
 
 # 更新 Lambda
 aws lambda update-function-code \
     --function-name $FUNCTION_NAME \
-    --zip-file fileb://$ZIP_FILE
+    --zip-file fileb://$FUNCTION_ZIP_FILE
 
 # 測試 Lambda (Console)
  - note: note: 無法直接看到/編輯程式碼了
