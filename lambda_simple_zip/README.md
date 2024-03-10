@@ -31,6 +31,10 @@ sudo yum install -y git
 # 安裝套件 - docker 
 sudo yum install docker -y
 
+# 下載專案
+git clone https://github.com/uopsdod/aws-serverless-course
+cd aws-serverless-course/lambda_simple_zip/
+
 # 設定環境參數
 AWS_ACCOUNT=659104334423
 FUNCTION_NAME="lambda_simple_function"
