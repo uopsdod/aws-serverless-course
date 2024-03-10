@@ -53,18 +53,3 @@ aws lambda update-function-configuration \
 # 測試 Lambda (Console)
  - 點擊 Test - 預期回應: OK
 
----- 
-
-# 回到 EC2 Terminal 
-
-# 模擬大量第三方套件安裝
-dd if=/dev/zero of=many_dependencies bs=1M count=500
-sudo zip ${ZIP_FILE} many_dependencies
-unzip -l ${ZIP_FILE} | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024 " MB"}'
-
-# 更新 Lambda (optional)
-aws lambda update-function-code \
-    --function-name $FUNCTION_NAME \
-    --zip-file fileb://$ZIP_FILE
-
- - 預期回應: "An error occurred (InvalidParameterValueException) when calling the UpdateFunctionCode operation: Unzipped size must be smaller than 262144000 bytes"
