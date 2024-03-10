@@ -31,6 +31,10 @@ sudo yum install -y git
 # 安裝套件 - docker 
 sudo yum install docker -y
 
+# 安裝套件 - python
+sudo yum install -y python
+sudo yum install -y pip
+
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course
 cd aws-serverless-course/lambda_simple_zip/
