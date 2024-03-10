@@ -1,5 +1,8 @@
 # 回到 EC2 Terminal 
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/lambda_dependency_zip/
+
 # 設定環境參數
 AWS_ACCOUNT=659104334423
 FUNCTION_NAME="lambda_dependency_function"
@@ -7,7 +10,7 @@ HANDLER_NAME="handler"
 ZIP_FILE="lambda_dependency_function.zip"
 
 # 打包 Lambda 程式碼
-rm $ZIP_FILE
+rm -f $ZIP_FILE
 zip ${ZIP_FILE} ${FUNCTION_NAME}.py
 ls -lh
 
@@ -32,19 +35,21 @@ aws lambda update-function-code \
 # 回到 EC2 Terminal 
 
 # 安裝第三方套件
-# - python 套件需要在 Lambda 根目錄底下 
+# - python 套件需要在 Lambda 根目錄底下
 python -m venv venv
 source venv/bin/activate
-pip install requests --target ./package001
-ls ./package001
+pip install requests
+ls venv/lib/python3.9/site-packages/
  - you should see 'requests' folder 
 
 # 打包第三方套件
-# - python 套件需要在 Lambda 根目錄底下 
-cd ./package001
-rm -f $ZIP_FILE
-zip -r $ZIP_FILE ./
-cd ../
+# - python 套件需要在 Lambda 根目錄底下
+YOUR_WORK_FOLDER=$(pwd)
+echo $YOUR_WORK_FOLDER
+cd venv/lib/python3.9/site-packages/
+rm -f ${YOUR_WORK_FOLDER}/${ZIP_FILE}
+zip -r ${YOUR_WORK_FOLDER}/${ZIP_FILE} ./
+cd ${YOUR_WORK_FOLDER}
 ls -lh
 
 # 打包程式碼
