@@ -1,5 +1,8 @@
 # 回到 EC2 Terminal 
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/lambda_layer_zip/
+
 # 設定環境參數
 AWS_ACCOUNT=659104334423
 LAYER_NAME="lambda_library_only"
@@ -25,6 +28,7 @@ aws lambda create-function \
  - 點擊 Test - 預期回應: "Unable to import module 'lambda_function_only': No module named 'requests'"
 
 --- 
+# 回到 EC2 Terminal 
 
 # 安裝第三方套件
 # - python 套件需要在 python/ 目錄底下 
