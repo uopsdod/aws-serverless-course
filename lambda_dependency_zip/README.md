@@ -32,24 +32,24 @@ aws lambda update-function-code \
 # 回到 EC2 Terminal 
 
 # 安裝第三方套件
+# - python 套件需要在 Lambda 根目錄底下 
 python -m venv venv
 source venv/bin/activate
-pip install requests
-ls venv/lib/python3.9/site-packages/
+pip install requests --target ./package001
+ls ./package001
  - you should see 'requests' folder 
 
 # 打包第三方套件
-YOUR_WORK_FOLDER=$(pwd)
-echo $YOUR_WORK_FOLDER
-cd venv/lib/python3.9/site-packages/
-rm -f ${YOUR_WORK_FOLDER}/${ZIP_FILE}
-sudo zip -r ${YOUR_WORK_FOLDER}/${ZIP_FILE} ./
-cd ${YOUR_WORK_FOLDER}
+# - python 套件需要在 Lambda 根目錄底下 
+cd ./package001
+rm -f $ZIP_FILE
+zip -r $ZIP_FILE ./
+cd ../
 ls -lh
 
 # 打包程式碼
-sudo zip -g ${ZIP_FILE} ${FUNCTION_NAME}.py
-unzip -l ${ZIP_FILE} | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024 " MB"}'
+zip -g $ZIP_FILE ${FUNCTION_NAME}.py
+unzip -l $ZIP_FILE | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024 " MB"}'
  - 預期大於 3 MB
 
 # 更新 Lambda
@@ -67,7 +67,7 @@ aws lambda update-function-code \
 
 # 模擬大量第三方套件安裝
 dd if=/dev/zero of=many_dependencies bs=1M count=500
-sudo zip ${ZIP_FILE} many_dependencies
+zip ${ZIP_FILE} many_dependencies
 unzip -l ${ZIP_FILE} | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024 " MB"}'
 
 # 更新 Lambda (optional)
