@@ -5,9 +5,10 @@ cd ~/aws-serverless-course/lambda_dependency_zip/
 
 # 設定環境參數
 AWS_ACCOUNT=659104334423
-FUNCTION_NAME="lambda_dependency_function"
+FUNCTION_NAME="lambda_function_only"
 HANDLER_NAME="handler"
-ZIP_FILE="lambda_dependency_function.zip"
+ZIP_FILE="everything_function.zip"
+LAMBDA_FUNCTION_NAME="everything_function"
 
 # 打包 Lambda 程式碼
 rm -f $ZIP_FILE
