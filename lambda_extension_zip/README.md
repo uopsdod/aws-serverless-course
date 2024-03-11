@@ -44,15 +44,7 @@ aws lambda create-function \
     --role arn:aws:iam::${AWS_ACCOUNT}:role/serverless-lambda-role \
     --layers ${LAYER_VERSION_ARN}
 
-
-
 # 更新 Lambda Function 使用 Layer
-aws lambda get-function-configuration \
-    --function-name $FUNCTION_NAME \
-    --query 'Layers[*].Arn' \
-    --output text
-
-
 aws lambda update-function-configuration \
     --function-name $FUNCTION_NAME \
     --layers ${LAYER_VERSION_ARN}
@@ -60,8 +52,10 @@ aws lambda update-function-configuration \
 # 測試 Lambda (Console)
  - 點擊 Test - 預期回應: OK
 
+---
+# 回到 EC2 Terminal 
 
-# 安裝套件
+# 安裝 Extension 所需套件
 cd python-example-extension
 chmod +x extension.py
 pip3 install -r requirements.txt -t .
@@ -69,13 +63,23 @@ cd ..
 
 # 打包 extension.zip
 chmod +x extensions/python-example-extension
-$ zip -r extension.zip .
+zip -r extension.zip .
 
 # 建立 Lambda Extension Layer 
-AWS_REGOIN="us-east-2"
 aws lambda publish-layer-version \
  --layer-name "python-example-extension" \
- --region $AWS_REGOIN \
  --zip-file  "fileb://extension.zip"
 
 # 使用 Lambda Extension Layer
+LAYER_VERSION_EXTENSION_ARN=arn:aws:lambda:us-east-2:659104334423:layer:python-example-extension:2
+aws lambda update-function-configuration \
+    --function-name $FUNCTION_NAME \
+    --layers $LAYER_VERSION_ARN $LAYER_VERSION_EXTENSION_ARN
+
+# 測試 Lambda (Console)
+ - 點擊 Test - 預期回應: OK
+ - Logs: "[python-example-extension]"
+
+-----
+# Reference - Example Extension in Python
+- https://github.com/aws-samples/aws-lambda-extensions/tree/main/python-example-extension
