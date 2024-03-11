@@ -7,8 +7,8 @@ cd ~/aws-serverless-course/lambda_dependency_zip/
 AWS_ACCOUNT=659104334423
 FUNCTION_NAME="lambda_function_only"
 HANDLER_NAME="handler"
-ZIP_FILE="everything_function.zip"
-LAMBDA_FUNCTION_NAME="everything_function"
+ZIP_FILE="bundled_function.zip"
+LAMBDA_FUNCTION_NAME="bundled_function"
 
 # 打包 Lambda 程式碼
 rm -f $ZIP_FILE
@@ -17,7 +17,7 @@ ls -lh
 
 # 建立 Lambda 
 aws lambda create-function \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --runtime python3.12 \
     --zip-file fileb://$ZIP_FILE \
     --handler $FUNCTION_NAME.$HANDLER_NAME \
@@ -60,7 +60,7 @@ unzip -l $ZIP_FILE | awk 'BEGIN {sum=0} {sum += $1} END {print sum / 1024 / 1024
 
 # 更新 Lambda
 aws lambda update-function-code \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --zip-file fileb://$ZIP_FILE
 
 # 測試 Lambda (Console)
