@@ -14,6 +14,10 @@ ls -l /var/run/docker.sock
 sudo usermod -aG docker $USER && newgrp docker
 docker ps
 
+# 建立 Docker Image 
+docker build -t simple-function --no-cache .
+docker images
+
 # 啟動 Docker 容器
 docker run -d --name simple-function -p 9000:8080 simple-function:latest
 docker container ls 
@@ -52,7 +56,7 @@ AWS_ACCOUNT=659104334423
 LAMBDA_FUNCTION_NAME="docker-simple-function"
 aws lambda create-function  \
 --function-name $LAMBDA_FUNCTION_NAME  \
---role arn:aws:iam::${AWS_ACCOUNT}:role/lambda-shell-custom-runtime-role \
+--role arn:aws:iam::${AWS_ACCOUNT}:role/serverless-lambda-role \
 --code ImageUri=$ECR_REPO_URL:latest \
 --package-type Image
 
@@ -62,6 +66,6 @@ aws lambda update-function-code \
 --image-uri $ECR_REPO_URL:latest
 
 # 測試 Lambda (Console)
-
+ - Test - 預測回應: OK 
 
 
