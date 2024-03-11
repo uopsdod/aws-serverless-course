@@ -37,7 +37,7 @@ sudo yum install -y pip
 
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course
-cd aws-serverless-course/lambda_simple_zip/
+cd ~/aws-serverless-course/lambda_simple_zip/
 
 # 設定環境參數
 AWS_ACCOUNT=659104334423
@@ -48,7 +48,7 @@ LAMBDA_FUNCTION_NAME="simple_function"
 
 # 打包程式碼
 rm $ZIP_FILE
-zip $ZIP_FILE lambda_simple_function.py
+zip $ZIP_FILE ${FUNCTION_NAME}.py
 ls -lh
 
 # 建立 Lambda 
