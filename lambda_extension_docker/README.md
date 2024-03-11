@@ -54,3 +54,5 @@ aws lambda update-function-code \
 
 # 測試 Lambda (Console)
  - Test - 預測回應: OK 
+ - CloudWatch Logs: "[python-example-extension]"
+
