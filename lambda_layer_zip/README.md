@@ -31,14 +31,14 @@ aws lambda create-function \
 # 回到 EC2 Terminal 
 
 # 安裝第三方套件
-# - python 套件需要在 python/ 目錄底下 
+# Layer paths for python: https://docs.aws.amazon.com/lambda/latest/dg/packaging-layers.html
 python -m venv venv
 source venv/bin/activate
 pip install requests --target ./python
 ls ./python
 
 # 打包第三方套件
-# - python 套件需要在 python/ 目錄底下 
+# Layer paths for python: https://docs.aws.amazon.com/lambda/latest/dg/packaging-layers.html
 rm -f $LAYER_ZIP_FILE
 zip -r $LAYER_ZIP_FILE ./python
 ls -lh
@@ -50,6 +50,12 @@ aws lambda publish-layer-version \
 LAYER_VERSION_ARN=XXXXX
 
 # 更新 Lambda Function 使用 Layer
+aws lambda get-function-configuration \
+    --function-name $FUNCTION_NAME \
+    --query 'Layers[*].Arn' \
+    --output text
+
+
 aws lambda update-function-configuration \
     --function-name $FUNCTION_NAME \
     --layers ${LAYER_VERSION_ARN}
