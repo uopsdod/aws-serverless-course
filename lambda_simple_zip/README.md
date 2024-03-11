@@ -41,9 +41,10 @@ cd aws-serverless-course/lambda_simple_zip/
 
 # 設定環境參數
 AWS_ACCOUNT=659104334423
-FUNCTION_NAME="lambda_simple_function"
+FUNCTION_NAME="lambda_function_only"
 HANDLER_NAME="handler"
-ZIP_FILE="lambda_simple_function.zip"
+ZIP_FILE="lambda_function_only.zip"
+LAMBDA_FUNCTION_NAME="simple_function"
 
 # 打包程式碼
 rm $ZIP_FILE
@@ -52,7 +53,7 @@ ls -lh
 
 # 建立 Lambda 
 aws lambda create-function \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --runtime python3.12 \
     --zip-file fileb://$ZIP_FILE \
     --handler $FUNCTION_NAME.$HANDLER_NAME \
@@ -60,7 +61,7 @@ aws lambda create-function \
 
 # 更新 Lambda (optional)
 aws lambda update-function-code \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --zip-file fileb://$ZIP_FILE
 
 # 測試 Lambda (Console)
