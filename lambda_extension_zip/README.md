@@ -5,11 +5,12 @@ cd ~/aws-serverless-course/lambda_extension_zip/
 
 # 設定環境參數
 AWS_ACCOUNT=659104334423
-LAYER_NAME="lambda_library_only_002"
-LAYER_ZIP_FILE="lambda_library_only_002.zip"
-FUNCTION_NAME="lambda_only_function_002"
+LAYER_NAME="lambda_library_only"
+LAYER_ZIP_FILE="lambda_library_only.zip"
+FUNCTION_NAME="lambda_function_only"
 HANDLER_NAME="handler"
-FUNCTION_ZIP_FILE="lambda_only_function_002.zip"
+FUNCTION_ZIP_FILE="lambda_function_only.zip"
+LAMBDA_FUNCTION_NAME="simple_function_with_layer_with_extension"
 
 # 打包程式碼
 rm $FUNCTION_ZIP_FILE
@@ -37,7 +38,7 @@ LAYER_VERSION_ARN=XXXXX
 
 # 建立 Lambda Function
 aws lambda create-function \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --runtime python3.12 \
     --zip-file fileb://$FUNCTION_ZIP_FILE \
     --handler $FUNCTION_NAME.$HANDLER_NAME \
@@ -46,7 +47,7 @@ aws lambda create-function \
 
 # 更新 Lambda Function 使用 Layer
 aws lambda update-function-configuration \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --layers ${LAYER_VERSION_ARN}
 
 # 測試 Lambda (Console)
@@ -73,7 +74,7 @@ aws lambda publish-layer-version \
 # 使用 Lambda Extension Layer
 LAYER_VERSION_EXTENSION_ARN=arn:aws:lambda:us-east-2:659104334423:layer:python-example-extension:2
 aws lambda update-function-configuration \
-    --function-name $FUNCTION_NAME \
+    --function-name $LAMBDA_FUNCTION_NAME \
     --layers $LAYER_VERSION_ARN $LAYER_VERSION_EXTENSION_ARN
 
 # 測試 Lambda (Console)
