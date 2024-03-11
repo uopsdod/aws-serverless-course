@@ -79,7 +79,7 @@ aws lambda update-function-configuration \
 
 # 測試 Lambda (Console)
  - 點擊 Test - 預期回應: OK
- - Logs: "[python-example-extension]"
+ - CloudWatch Logs: "[python-example-extension]"
 
 -----
 # Reference - Example Extension in Python
