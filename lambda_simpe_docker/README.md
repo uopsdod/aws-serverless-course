@@ -1,5 +1,8 @@
 # 進入 EC2 Terminal 
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/lambda_simple_docker/
+
 # 安裝並啟動 docker
 sudo yum install docker -y
 sudo docker --version
