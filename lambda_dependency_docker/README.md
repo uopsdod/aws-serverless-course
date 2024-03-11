@@ -1,7 +1,7 @@
 # 進入 EC2 Terminal 
 
 # 進入本單元專案目錄
-cd ~/aws-serverless-course/lambda_layer_docker
+cd ~/aws-serverless-course/lambda_dependency_docker
 
 # 啟動 docker
 sudo service docker start
