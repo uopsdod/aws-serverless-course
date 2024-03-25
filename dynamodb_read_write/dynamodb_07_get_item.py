@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import botocore.session
 import json
-import sys
+
 
 region = 'us-east-2'
 session = botocore.session.get_session()
@@ -9,6 +9,7 @@ dynamodb = session.create_client('dynamodb', region_name=region)  # low-level cl
 
 # DAX Cache
 if len(sys.argv) > 1:
+    import sys
     from amazondax import AmazonDaxClient
     dax_cluster_endpoint = sys.argv[1]  # Assuming the DAX endpoint is the first argument
     dynamodb = AmazonDaxClient(session, endpoints=[dax_cluster_endpoint], region_name=region)
