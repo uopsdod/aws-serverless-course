@@ -6,7 +6,7 @@ region = 'us-east-2'
 session = botocore.session.get_session()
 dynamodb = session.create_client('dynamodb', region_name=region)  # low-level client
 
-# DAX Cache
+# DAX Cache (for learning purpose)
 import sys
 if len(sys.argv) > 1:
     from amazondax import AmazonDaxClient

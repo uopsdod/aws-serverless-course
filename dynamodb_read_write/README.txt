@@ -142,12 +142,22 @@ python3 dynamodb_10_delete_table.py
 
 # Item Read/Write 都可利用 DAX 
 DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
+python3 dynamodb_01_create_table.py
+python3 dynamodb_02_add_items.py $DAX_ENDPOINT
+python3 dynamodb_03_update_items.py $DAX_ENDPOINT
+python3 dynamodb_04_delete_items.py $DAX_ENDPOINT
+python3 dynamodb_05_add_items_1000.py $DAX_ENDPOINT
+python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 python3 dynamodb_07_get_item.py $DAX_ENDPOINT
 python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 python3 dynamodb_09_scan_item.py $DAX_ENDPOINT
+python3 dynamodb_10_delete_table.py
+python3 dynamodb_11_create_table_with_lsi.py 
+python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 python3 dynamodb_12_query_item_with_lsi.py $DAX_ENDPOINT
-
-
+python3 dynamodb_13_create_gsi.py 
+python3 dynamodb_14_query_item_with_gsi.py $DAX_ENDPOINT
+python3 dynamodb_10_delete_table.py
 
 ===== 資源清理 =====
 
