@@ -100,19 +100,52 @@ pip3 install amazon-dax-client
   - Subnet 
   - Security Group
 - iam role: "dax-to-dynamodb-role-001"
+- Parameter Group
+ - TTL: Item time-to-live (TTL)
+ - TTL: Query time-to-live (TTL)
 
 # 建立 IAM Role for EC2
 - name: "dynamodb-dax-ec2-role"
 
 # 建立 EC2 Instance 
 
+# 進入 EC2 Instance 
+
+===== 使用 DAX ===== 
+
+# 查詢到內容
+python3 dynamodb_15_query_item_with_dax.py 
+
+# 刪除 Table 
+python3 dynamodb_10_delete_table.py
+
+# 收到錯誤
+python3 dynamodb_15_query_item_with_dax.py
+
+# 建立 Table 
+python3 dynamodb_01_create_table.py 
+
+# 收到空白內容 
+python3 dynamodb_15_query_item_with_dax.py
+
+# 建立測試資料
+python3 dynamodb_06_add_bulk_items_1000.py
+
+# 收到空白內容 (Cached)
+python3 dynamodb_15_query_item_with_dax.py
+
+# 收到內容 (after 5 mins ...)
+python3 dynamodb_15_query_item_with_dax.py
+
+# 刪除 Table 
+python3 dynamodb_10_delete_table.py
+
+===== 資源清理 =====
+
 # 清理
-DAX - Subnet Group
+EC2 
 DAX - Cluster 
-IAM Role 
+DAX - Subnet Group
+DynamoDB Table
 VPC 
-
-
-
-
-
+IAM Role 
