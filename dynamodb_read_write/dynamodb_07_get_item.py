@@ -13,6 +13,7 @@ if len(sys.argv) > 1:
     from amazondax import AmazonDaxClient
     dax_cluster_endpoint = sys.argv[1]  # Assuming the DAX endpoint is the first argument
     dynamodb = AmazonDaxClient(session, endpoints=[dax_cluster_endpoint], region_name=region)
+    print("DAX in use.")
 
 table_name = "game-python-001"
 
