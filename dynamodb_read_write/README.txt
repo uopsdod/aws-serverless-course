@@ -140,6 +140,11 @@ python3 dynamodb_15_query_item_with_dax.py
 # 刪除 Table 
 python3 dynamodb_10_delete_table.py
 
+# 所有查詢都可利用 DAX 
+DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
+python3 dynamodb_07_get_item.py $DAX_ENDPOINT
+
+
 ===== 資源清理 =====
 
 # 清理
