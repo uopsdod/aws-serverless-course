@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import botocore.session
 import json
+from amazondax import AmazonDaxClient
 
 region = 'us-east-2'
 session = botocore.session.get_session()
