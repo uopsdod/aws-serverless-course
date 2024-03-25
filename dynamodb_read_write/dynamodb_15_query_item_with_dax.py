@@ -27,16 +27,16 @@ response = dax_client.query(
 items = response.get('Items', [])
 if items:
     print(f"Found {len(items)} items with hour {partition_key}.")
-    for item in items:
-        # Convert DynamoDB item to a more readable format, if needed
-        readable_item = {
-            "hour": item["hour"]["N"],
-            "type": item["type"]["S"],
-            "duration": item["duration"]["N"],
-            "winner": item["winner"]["S"],
-            "players": json.dumps(item["players"]["SS"]),  # Convert set to JSON string for readability
-            "is_vip": item["is_vip"]["S"]  # Adjusted for correct type
-        }
-        print("Retrieved item:", readable_item)
+    # for item in items:
+    #     # Convert DynamoDB item to a more readable format, if needed
+    #     readable_item = {
+    #         "hour": item["hour"]["N"],
+    #         "type": item["type"]["S"],
+    #         "duration": item["duration"]["N"],
+    #         "winner": item["winner"]["S"],
+    #         "players": json.dumps(item["players"]["SS"]),  # Convert set to JSON string for readability
+    #         "is_vip": item["is_vip"]["S"]  # Adjusted for correct type
+    #     }
+    #     print("Retrieved item:", readable_item)
 else:
     print(f"No items found with hour {partition_key}.")
