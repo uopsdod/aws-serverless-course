@@ -7,15 +7,22 @@ session = botocore.session.get_session()
 dynamodb = session.create_client('dynamodb', region_name=region)  # low-level client
 
 table_name = "game-python-001"
+gsi_name = "gsi-vip-hour"  # Name of the GSI
 
-partition_key = "10"
+# Query parameters
+is_vip = "true"  # partition key
+start_hour = 8 # sort key
+end_hour = 16 # sort key
 
-# Using the query API with expression attribute names for both hour and type
+# Query the GSI
 response = dynamodb.query(
     TableName=table_name,
-    KeyConditionExpression="#hour = :hour_val",
+    IndexName=gsi_name, 
+    KeyConditionExpression="is_vip = :vip_val AND #hour BETWEEN :start_hour AND :end_hour",
     ExpressionAttributeValues={
-        ":hour_val": {"N": partition_key}
+        ":vip_val": {"S": is_vip},
+        ":start_hour": {"N": str(start_hour)},
+        ":end_hour": {"N": str(end_hour)}
     },
     ExpressionAttributeNames={
         "#hour": "hour",  # hour is a reserved keyword in Query
@@ -25,7 +32,7 @@ response = dynamodb.query(
 # Process the query result
 items = response.get('Items', [])
 if items:
-    print(f"Found {len(items)} items with hour {partition_key}.")
+    print(f"Found {len(items)} items with is_vip {is_vip} and hour between {start_hour} to {end_hour}.")
     # for item in items:
     #     # Convert DynamoDB item to a more readable format, if needed
     #     readable_item = {
@@ -33,9 +40,8 @@ if items:
     #         "type": item["type"]["S"],
     #         "duration": item["duration"]["N"],
     #         "winner": item["winner"]["S"],
-    #         "players": json.dumps(item["players"]["SS"]),  # Convert set to JSON string for readability
     #         "is_vip": item["is_vip"]["S"]
     #     }
     #     print("Retrieved item:", readable_item)
 else:
-    print(f"No items found with hour {partition_key}.")
+    print(f"No items found with is_vip {is_vip} and hour between {start_hour} to {end_hour}.")

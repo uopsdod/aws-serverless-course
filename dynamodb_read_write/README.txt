@@ -70,6 +70,50 @@ python3 dynamodb_06_add_bulk_items_1000.py
 # Scan 示範 
  - 查看 Read Capacity 用量
 
+ ===== 建立 DAX ===== 
+
+ # 安裝第三方套件
+# - python 套件需要在 Lambda 根目錄底下
+python3 -m venv venv
+source venv/bin/activate
+pip3 install boto3
+pip3 install amazon-dax-client
+
+# 建立 VPC 
+- name: "vpc-dynamodb-001"
+
+# 建立 Security Group
+- name: "dynamodb-dax-001"
+- description: "dynamodb-dax-001"
+- port: 8111
+- port: 9111 
+
+# 建立 IAM Role for DAX 
+- Service: DynamoDB
+ - Use Case: Amazon DynamoDB Accelerator (DAX) - DynamoDB access
+- name: "dax-to-dynamodb-role-001"
+
+# 建造 DAX Cluster 
+- cluster name: "dax-cluster-demo-001" 
+- Node family: t-type family
+- subnet Group: "subnet-group-001"
+ - pick VPC
+  - Subnet 
+  - Security Group
+- iam role: "dax-to-dynamodb-role-001"
+
+# 建立 IAM Role for EC2
+- name: "dynamodb-dax-ec2-role"
+
+# 建立 EC2 Instance 
+
+# 清理
+DAX - Subnet Group
+DAX - Cluster 
+IAM Role 
+VPC 
+
+
 
 
 

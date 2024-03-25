@@ -18,7 +18,7 @@ params = {
     },
     'UpdateExpression': 'SET is_vip = :is_vip_val',
     'ExpressionAttributeValues': {
-        ':is_vip_val': {'BOOL': False}
+        ':is_vip_val': {'S': 'false'}
     },
 }
 

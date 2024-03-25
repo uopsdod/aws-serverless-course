@@ -17,8 +17,6 @@ def convert_to_dynamodb_format(val, dtype):
         return {'N': str(val)}
     elif dtype == 'S':
         return {'S': str(val)}
-    elif dtype == 'BOOL':
-        return {'BOOL': val.lower() == 'true'}
     elif dtype == 'SS':
         return {'SS': val}
     else:
@@ -37,7 +35,7 @@ with open(csv_file_path, newline='') as csvfile:
             "duration": convert_to_dynamodb_format(row["duration"], 'N'),
             "winner": convert_to_dynamodb_format(row["winner"], 'S'),
             "players": convert_to_dynamodb_format(json.loads(row["players"]), 'SS'),  # Parse the string list
-            "is_vip": convert_to_dynamodb_format(row["is_vip"], 'BOOL'),
+            "is_vip": convert_to_dynamodb_format(row["is_vip"], 'S'),
         }
         
         # Add the item to DynamoDB

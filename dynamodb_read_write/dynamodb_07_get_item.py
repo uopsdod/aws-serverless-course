@@ -30,7 +30,7 @@ if item:
         "duration": item["duration"]["N"],
         "winner": item["winner"]["S"],
         "players": json.dumps(item["players"]["SS"]),  # Convert set to JSON string for readability
-        "is_vip": item["is_vip"]["BOOL"]
+        "is_vip": item["is_vip"]["S"]
     }
     print("Retrieved item:", readable_item)
 else:

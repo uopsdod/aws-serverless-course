@@ -33,7 +33,7 @@ sort_key = 'poker'
 duration = '312'
 winner = 'yoyodi'
 players = ["harry", "zebie", "yoyodi"]
-is_vip = True
+is_vip = 'true'
 params = {
     'TableName': table_name,
     'Item': {
@@ -42,7 +42,7 @@ params = {
         "duration": {'N': duration},
         "winner": {'S': winner},
         "players": {'SS': players},  
-        "is_vip": {'BOOL': is_vip},
+        "is_vip": {'S': is_vip},
     }
 }
 
@@ -55,7 +55,7 @@ sort_key = 'tennis'
 duration = '70'
 winner = 'kkdd303'
 players = ["kkdd303", "zebie", "yoyodi"] 
-is_vip = False
+is_vip = 'false'
 params = {
     'TableName': table_name,
     'Item': {
@@ -64,7 +64,7 @@ params = {
         "duration": {'N': duration},
         "winner": {'S': winner},
         "players": {'SS': players},  
-        "is_vip": {'BOOL': is_vip},
+        "is_vip": {'S': is_vip},
     }
 }
 
