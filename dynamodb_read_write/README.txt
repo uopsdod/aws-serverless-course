@@ -52,7 +52,6 @@ click [item03] -> Action -> delete item
 python3 -m venv venv
 source venv/bin/activate
 pip3 install boto3
-pip3 install amazon-dax-client
 
 # 建立 Table 
 python3 dynamodb_01_create_table.py
