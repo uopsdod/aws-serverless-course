@@ -63,7 +63,7 @@ if skill_details["is_available"] == "true":
         print("simluating network slowness ends")
 
         response = dynamodb.update_item(**params)
-        print(f"Update successful for item ({skill_details["name"]})")
+        print(f"Update successful for item ({skill_details['name']})")
     except botocore.exceptions.ClientError as error:
         if error.response['Error']['Code'] == "ConditionalCheckFailedException":
             print("Condition check failed: Version mismatch")
