@@ -62,7 +62,4 @@ try:
     response = dynamodb.update_item(**params)
     print(f"Update successful for item ({skill_details['name']})")
 except botocore.exceptions.ClientError as error:
-    if error.response['Error']['Code'] == "ConditionalCheckFailedException":
-        print(f"Condition check failed: Version mismatch. Abort update on item ({skill_details['name']}")
-    else:
-        raise
+    print(f"Failed to update item ({skill_details['name']})")
