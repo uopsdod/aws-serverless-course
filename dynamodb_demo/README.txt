@@ -254,17 +254,20 @@ python3 dynamodb_08_delete_table_player.py
 # 進入本單元專案目錄
 cd ~/aws-serverless-course/dynamodb_demo/versioning
 
-# Versioning 
+# Versioning 成功執行
 python3 dynamodb_01_create_table_skill_version.py
 python3 dynamodb_02_add_items_skill_version.py
 python3 dynamodb_03_update_item_versioning.py
 
+# Versioning 模擬錯誤狀況 
+python3 dynamodb_04_update_item_versioning_slow.py
+
 (open the 2nd terminals)
+cd ~/aws-serverless-course/dynamodb_demo/versioning
 python3 -m venv venv
 source venv/bin/activate
 pip3 install boto3
-cd versioning/
-python3 dynamodb_04_update_item_versioning_interrupt.py
+python3 dynamodb_05_update_item_versioning_slow_interrupt.py
 
 (check version on Console)
 (go back to the 1st terminal)
