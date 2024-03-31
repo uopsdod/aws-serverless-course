@@ -60,7 +60,8 @@ click [item03] -> Action -> delete item
 ===== Python 程式碼操作 =====
 
 # 下載專案
-git clone 
+git clone https://github.com/uopsdod/aws-serverless-course.git
+cd ~/aws-serverless-course/basic
 
 # 安裝第三方套件
 # - python 套件需要在 Lambda 根目錄底下
