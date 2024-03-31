@@ -159,6 +159,33 @@ python3 dynamodb_13_create_gsi.py
 python3 dynamodb_14_query_item_with_gsi.py $DAX_ENDPOINT
 python3 dynamodb_10_delete_table.py
 
+# Transaction 
+cd transaction/
+python3 dynamodb_15_create_table_skill.py
+python3 dynamodb_16_add_items_skill.py
+python3 dynamodb_17_create_table_player.py
+python3 dynamodb_18_add_items_player.py
+python3 dynamodb_19_add_items_in_transaction.py
+python3 dynamodb_20_delete_table_skill.py
+python3 dynamodb_21_delete_table_player.py
+
+# Versioning 
+cd versioning/
+python3 versioning/dynamodb_22_create_table_skill_version.py
+python3 versioning/dynamodb_23_add_items_skill_version.py
+python3 versioning/dynamodb_24_versioning.py
+
+(open the 2nd terminals)
+python3 -m venv venv
+source venv/bin/activate
+pip3 install boto3
+cd versioning/
+python3 versioning/dynamodb_25_versioning_interrupt.py
+
+(check version on Console)
+(go back to the 1st terminal)
+- expect: see version conflict error 
+
 ===== 資源清理 =====
 
 # 清理
