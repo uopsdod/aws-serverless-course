@@ -61,11 +61,12 @@ click [item03] -> Action -> delete item
 
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course.git
-cd ~/aws-serverless-course/basic
+
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
 
 # 安裝第三方套件
 # - python 套件需要在 Lambda 根目錄底下
-cd basic
 python3 -m venv venv
 source venv/bin/activate
 pip3 install boto3
@@ -100,6 +101,9 @@ python3 dynamodb_demo/basic/dynamodb_10_delete_table.py
 
 ===== 建立 Secondary Index ===== 
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/secondary_index
+
 # 建立 base table + LSI 
 python3 dynamodb_01_create_table_with_lsi.py
 python3 dynamodb_02_add_bulk_items_1000.py
@@ -118,14 +122,20 @@ python3 dynamodb_06_delete_table_with_lsi.py
 
 ===== 建立 DAX ===== 
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/basic
+
 # 安裝第三方套件
 pip3 install amazon-dax-client
 
 # 建立 VPC 
+- select "VPC and more"
 - name: "vpc-dynamodb-001"
 
 # 建立 Security Group
-- name: "dynamodb-dax-001"
+- name: "dynamodb-dax-sg-001"
+- description: "dynamodb-dax-sg-001"
+- vpc: "vpc-dynamodb-001"
 - description: "dynamodb-dax-001"
 - port: 8111
 - port: 9111 
@@ -136,13 +146,15 @@ pip3 install amazon-dax-client
 - name: "dax-to-dynamodb-role-001"
 
 # 建造 DAX Cluster 
-- cluster name: "dax-cluster-demo-001" 
+- cluster name: "dax-cluster-001" 
 - Node family: t-type family
-- subnet Group: "subnet-group-001"
- - pick VPC
-  - Subnet 
-  - Security Group
-- iam role: "dax-to-dynamodb-role-001"
+- # of nodes: 3
+- create a subnet Group: "subnet-group-001"
+ - pick VPC "vpc-dynamodb-001"
+  - pick any 2 subnets 
+  - pick security Group "dynamodb-dax-sg-001"
+- create an IAM role: 
+ - name: "dax-to-dynamodb-role-001"
 - Parameter Group
  - TTL: Item time-to-live (TTL)
  - TTL: Query time-to-live (TTL)
@@ -154,37 +166,46 @@ pip3 install amazon-dax-client
 
 # 進入 EC2 Instance 
 
-===== 使用 DAX ===== 
+===== 使用 DAX - 模擬 Cache 機制 ===== 
+
+# 設定 DAX Endpoint 環境參數
+DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
+
+# 建立 Table 
+python3 dynamodb_01_create_table.py
+python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 
 # 查詢到內容
-python3 dynamodb_15_query_item_with_dax.py 
+python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 刪除 Table 
 python3 dynamodb_10_delete_table.py
 
 # 收到錯誤
-python3 dynamodb_15_query_item_with_dax.py
+python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 建立 Table 
 python3 dynamodb_01_create_table.py 
 
 # 收到空白內容 
-python3 dynamodb_15_query_item_with_dax.py
+python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 建立測試資料
-python3 dynamodb_06_add_bulk_items_1000.py
+python3 dynamodb_06_add_bulk_items_1000.py 
 
 # 收到空白內容 (Cached)
-python3 dynamodb_15_query_item_with_dax.py
+python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 收到內容 (after 5 mins ...)
-python3 dynamodb_15_query_item_with_dax.py
+python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 刪除 Table 
 python3 dynamodb_10_delete_table.py
 
+===== 使用 DAX ===== 
+
 # Item Read/Write 都可利用 DAX 
-DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
+
 python3 dynamodb_01_create_table.py
 python3 dynamodb_02_add_items.py $DAX_ENDPOINT
 python3 dynamodb_03_update_items.py $DAX_ENDPOINT
@@ -202,8 +223,12 @@ python3 dynamodb_13_create_gsi.py
 python3 dynamodb_14_query_item_with_gsi.py $DAX_ENDPOINT
 python3 dynamodb_10_delete_table.py
 
+===== Transaction =====
+
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/transaction
+
 # Transaction 
-cd transaction/
 python3 dynamodb_15_create_table_skill.py
 python3 dynamodb_16_add_items_skill.py
 python3 dynamodb_17_create_table_player.py
@@ -212,8 +237,13 @@ python3 dynamodb_19_add_items_in_transaction.py
 python3 dynamodb_20_delete_table_skill.py
 python3 dynamodb_21_delete_table_player.py
 
+
+===== Versioning ===== 
+
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/versioning
+
 # Versioning 
-cd versioning/
 python3 versioning/dynamodb_22_create_table_skill_version.py
 python3 versioning/dynamodb_23_add_items_skill_version.py
 python3 versioning/dynamodb_24_versioning.py
@@ -231,7 +261,7 @@ python3 versioning/dynamodb_25_versioning_interrupt.py
 
 ===== 資源清理 =====
 
-# 清理
+# 清理 
 EC2 
 DAX - Cluster 
 DAX - Subnet Group
