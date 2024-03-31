@@ -273,7 +273,7 @@ python3 dynamodb_05_update_item_versioning_slow_interrupt.py
 (go back to the 1st terminal)
 - expect: see version conflict error 
 
-python3 dynamodb_demo/versioning/dynamodb_05_delete_table_skill_version.py
+python3 dynamodb_06_delete_table_skill_version.py
 
 ===== 資源清理 =====
 
