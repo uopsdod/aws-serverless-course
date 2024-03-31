@@ -35,39 +35,34 @@ def get_skill_details(table_name, skill_name):
         return None
     
 skill_table = "game-skill-version-001"
-skill_name = "lighting power"
+skill_name = "potion making"
 skill_details = get_skill_details(skill_table, skill_name)
 print('skill_details: ', skill_details)
 
 version_expected = int(skill_details["version"])
 version_incremented = version_expected + 1
 
-if skill_details["is_available"] == "true":
-    params = {
-        'TableName': skill_table,
-        'Key': {
-            "name": {'S': skill_details["name"]}
-        },
-        'UpdateExpression': "SET is_available = :false, version = :new_version",
-        'ConditionExpression': "version = :expected_version",
-        'ExpressionAttributeValues': {
-            ':false': {'S': "false"},
-            ':new_version': {'N': str(version_incremented)},
-            ':expected_version': {'N': str(version_expected)},
-        }
+price_new = 888
+
+params = {
+    'TableName': skill_table,
+    'Key': {
+        "name": {'S': skill_details["name"]}
+    },
+    'UpdateExpression': "SET price = :price, version = :new_version",
+    'ConditionExpression': "version = :expected_version",
+    'ExpressionAttributeValues': {
+        ':price': {'N': str(price_new)},
+        ':new_version': {'N': str(version_incremented)},
+        ':expected_version': {'N': str(version_expected)},
     }
+}
 
-    try:   
-        print("simluating network slowness ...")
-        time.sleep(5)
-        print("simluating network slowness ends")
-
-        response = dynamodb.update_item(**params)
-        print(f"Update successful for item ({skill_details['name']})")
-    except botocore.exceptions.ClientError as error:
-        if error.response['Error']['Code'] == "ConditionalCheckFailedException":
-            print("Condition check failed: Version mismatch")
-        else:
-            raise
-else:
-    print(f"Item ({skill_details['name']}) is not available anymore.")
+try:   
+    response = dynamodb.update_item(**params)
+    print(f"Update successful for item ({skill_details["name"]})")
+except botocore.exceptions.ClientError as error:
+    if error.response['Error']['Code'] == "ConditionalCheckFailedException":
+        print(f"Condition check failed: Version mismatch. Abort update on item ({skill_details["name"]}")
+    else:
+        raise
