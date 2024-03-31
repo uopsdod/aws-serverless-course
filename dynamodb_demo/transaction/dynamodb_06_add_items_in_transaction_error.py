@@ -3,11 +3,6 @@ import boto3
 # Initialize a DynamoDB client
 dynamodb = boto3.client('dynamodb', region_name='us-east-2')
 
-# Assumed data from previous steps
-# skill_price = 100  # The price of "fire power"
-# player_money = 200  # The current money of "jojo777"
-# player_skills = {"existing_skill1", "existing_skill2"}  # Current skills of "jojo777"
-
 def get_skill_details(table_name, skill_name):
     try:
         # Use get_item to fetch the specific item
@@ -65,12 +60,12 @@ def get_player_details(table_name, player_name):
         return None
 
 skill_table = "game-skill-001"
-skill_name = "fire power"
+skill_name = "lighting power"
 skill_details = get_skill_details(skill_table, skill_name)
 print('skill_details: ', skill_details)
 
 player_table = "game-player-001"
-player_name = "jojo777"
+player_name = "Jane"
 player_details = get_player_details(player_table, player_name)
 print('player_details: ', player_details)
 
