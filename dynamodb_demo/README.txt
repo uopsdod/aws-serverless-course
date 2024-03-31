@@ -239,13 +239,19 @@ python3 dynamodb_06_delete_table_with_lsi.py
 # 進入本單元專案目錄
 cd ~/aws-serverless-course/dynamodb_demo/transaction
 
-# Transaction 
+# 建立 Tables 
 python3 dynamodb_01_create_table_skill.py
 python3 dynamodb_02_add_items_skill.py
 python3 dynamodb_03_create_table_player.py
 python3 dynamodb_04_add_items_player.py
+
+# Transaction 成功執行 
 python3 dynamodb_05_add_items_in_transaction.py
+
+# Transaction 模擬失敗狀況 
 python3 dynamodb_06_add_items_in_transaction_error.py
+
+# 刪除 Tables
 python3 dynamodb_07_delete_table_skill.py
 python3 dynamodb_08_delete_table_player.py
 
@@ -282,5 +288,8 @@ EC2
 DAX - Cluster 
 DAX - Subnet Group
 DynamoDB Table
+
 VPC 
-IAM Role 
+
+IAM Role for EC2
+IAM Role for DAX 
