@@ -70,4 +70,4 @@ if skill_details["is_available"] == "true":
         else:
             raise
 else:
-    print(f"Item ({skill_details["name"]}) is not available anymore.")
+    print(f"Item ({skill_details['name']}) is not available anymore.")
