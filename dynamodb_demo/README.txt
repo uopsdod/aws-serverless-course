@@ -255,20 +255,22 @@ python3 dynamodb_08_delete_table_player.py
 cd ~/aws-serverless-course/dynamodb_demo/versioning
 
 # Versioning 
-python3 versioning/dynamodb_22_create_table_skill_version.py
-python3 versioning/dynamodb_23_add_items_skill_version.py
-python3 versioning/dynamodb_24_versioning.py
+python3 dynamodb_01_create_table_skill_version.py
+python3 dynamodb_02_add_items_skill_version.py
+python3 dynamodb_03_update_item_versioning.py
 
 (open the 2nd terminals)
 python3 -m venv venv
 source venv/bin/activate
 pip3 install boto3
 cd versioning/
-python3 versioning/dynamodb_25_versioning_interrupt.py
+python3 dynamodb_04_update_item_versioning_interrupt.py
 
 (check version on Console)
 (go back to the 1st terminal)
 - expect: see version conflict error 
+
+python3 dynamodb_demo/versioning/dynamodb_05_delete_table_skill_version.py
 
 ===== 資源清理 =====
 
