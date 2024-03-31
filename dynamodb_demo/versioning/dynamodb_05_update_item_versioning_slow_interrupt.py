@@ -63,6 +63,6 @@ try:
     print(f"Update successful for item ({skill_details['name']})")
 except botocore.exceptions.ClientError as error:
     if error.response['Error']['Code'] == "ConditionalCheckFailedException":
-        print(f"Condition check failed: Version mismatch. Abort update on item ({skill_details["name"]}")
+        print(f"Condition check failed: Version mismatch. Abort update on item ({skill_details['name']}")
     else:
         raise
