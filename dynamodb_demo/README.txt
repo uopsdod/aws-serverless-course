@@ -1,7 +1,25 @@
+===== EC2 Linux 共用環境 =====
+# 建立 VPC 
+- select "VPC and more"
+- name: "vpc-dynamodb-001"
+
+# 建立 IAM Role for EC2
+- name: "dynamodb-ec2-role-001"
+- policy: "AmazonDynamoDBFullAccess"
+
+# 建立 EC2 Instance 
+- name: "dynamodb-ec2-001"
+- no key pair 
+- vpc: "vpc-dynamodb-001"
+- subnet: pick public ones
+- enable public ip 
+- click Advanced setting
+ - pick role "dynamodb-ec2-role-001"
+
 ===== Console 操作 ===== 
 
 # 建立 Table 
-table name: game-001
+table name: "game-001"
 partition key; "hour"
  - type: Number 
 sort key: "type"
@@ -20,27 +38,27 @@ click Action -> create item
  - String:winner: tommy919
  - String Set:players: "kkdd303", "tommy919", "yoyodi"
 
-click [item01] -> Action -> duplicate item
+click [item02] -> Action -> duplicate item
  [item02]
- - Number:hour: 11
+ - Number:hour: 12
  - String:type: poker
  - Number:duration: 312
  - String:winner: yoyodi
  - String Set:players: "harry", "zebie", "yoyodi"
  - Boolean:is_vip: True 
 
-click [item02] -> Action -> duplicate item
+click [item03] -> Action -> duplicate item
  [item03]
- - Number:hour: 12
+ - Number:hour: 14
  - String:type: tennis
- - Number:duration: 70
+ - Number:duration: 700
  - String:winner: kkdd303
  - String Set:players: "kkdd303", "zebie", "yoyodi"
- - Boolean:is_vip: False
+ - String:is_vip: false
 
 # 更新 Item  
 click [item01] -> Action -> Edit item 
- - Boolean:is_vip: False
+ - Number:duration: 501
 
 # 刪除 Item 
 click [item03] -> Action -> delete item 
@@ -59,6 +77,8 @@ click [item03] -> Action -> delete item
 
 ===== Python 程式碼操作 =====
 
+# 進入 EC2 Instance 
+
 # 下載專案
 sudo yum install -y git
 git clone https://github.com/uopsdod/aws-serverless-course.git
@@ -67,13 +87,14 @@ git clone https://github.com/uopsdod/aws-serverless-course.git
 cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
 
 # 安裝第三方套件
-# - python 套件需要在 Lambda 根目錄底下
-python3 -m venv venv
-source venv/bin/activate
+sudo yum install -y pip
 pip3 install boto3
 
 # 建立 Table 
 python3 dynamodb_01_create_table.py
+
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
 
 # 建立 Item 
 python3 dynamodb_02_add_items.py
@@ -87,6 +108,9 @@ python3 dynamodb_04_delete_items.py
 # 建立 Multiple Items 
 python3 dynamodb_05_add_items_1000.py
 python3 dynamodb_06_add_bulk_items_1000.py 
+
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
 
 # 讀取單一 Item 
 python3 dynamodb_07_get_item.py
