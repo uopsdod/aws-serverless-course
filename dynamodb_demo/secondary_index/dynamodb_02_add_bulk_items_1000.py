@@ -16,10 +16,9 @@ if len(sys.argv) > 1:
     dynamodb = AmazonDaxClient(session, endpoints=[dax_cluster_endpoint], region_name=region)
     print("DAX in use.")
 
-table_name = "game-skill-001"
-csv_file_path = "dynamodb_16_add_items_skill.csv"  # Update this to the path of your CSV file
+table_name = "game-python-index-001"
+csv_file_path = "dynamodb_02_add_bulk_items_1000.csv"  # Update this to the path of your CSV file
 
-# Function to convert string value to correct DynamoDB format
 def convert_to_dynamodb_format(val, dtype):
     if dtype == 'N':
         return {'N': str(val)}
@@ -30,25 +29,36 @@ def convert_to_dynamodb_format(val, dtype):
     else:
         raise ValueError(f"Unsupported DynamoDB data type: {dtype}")
 
+def chunked_list(iterable, size):
+    """Return a list of successive n-sized chunks from iterable."""
+    chunked = []
+    for i in range(0, len(iterable), size):
+        chunked.append(iterable[i:i + size])
+    return chunked
+
 # Open and read the CSV file
 start_time = time.time()
+items = []
 item_count = 0
 with open(csv_file_path, newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        # Convert CSV row to DynamoDB item format
         item = {
-            "name": convert_to_dynamodb_format(row["name"], 'S'),
-            "price": convert_to_dynamodb_format(row["price"], 'N'),
-            "is_available": convert_to_dynamodb_format(row["is_available"], 'S')
+            "hour": convert_to_dynamodb_format(row["hour"], 'N'),
+            "type": convert_to_dynamodb_format(row["type"], 'S'),
+            "duration": convert_to_dynamodb_format(row["duration"], 'N'),
+            "winner": convert_to_dynamodb_format(row["winner"], 'S'),
+            "players": convert_to_dynamodb_format(json.loads(row["players"]), 'SS'),
+            "is_vip": convert_to_dynamodb_format(row["is_vip"], 'S'),
         }
-        
-        # Add the item to DynamoDB
-        response = dynamodb.put_item(TableName=table_name, Item=item)
-        item_count += 1
-        print(f"Finished adding item ({row['name']}, {row['price']})")
+        items.append({'PutRequest': {'Item': item}})
+
+# Split items into chunks of 25 for batch writing
+item_batch_size = 25
+for chunk in chunked_list(items, item_batch_size):
+    response = dynamodb.batch_write_item(RequestItems={table_name: chunk})
+    item_count += item_batch_size
 
 print(f"Finished adding all {item_count} items from CSV.")
 duration = time.time() - start_time
 print(f"The script took {duration:.0f} seconds to complete.")
-

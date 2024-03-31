@@ -5,7 +5,7 @@ region = 'us-east-2'
 session = botocore.session.get_session()
 dynamodb = session.create_client('dynamodb', region_name=region) # low-level client
 
-table_name = "game-python-001"
+table_name = "game-python-index-001"
 lsi_name = "lsi-duration"
 
 params = {

@@ -14,7 +14,7 @@ if len(sys.argv) > 1:
     dynamodb = AmazonDaxClient(session, endpoints=[dax_cluster_endpoint], region_name=region)
     print("DAX in use.")
 
-table_name = "game-python-001"
+table_name = "game-python-index-001"
 gsi_name = "gsi-vip-hour"  # Name of the GSI
 
 # Query parameters

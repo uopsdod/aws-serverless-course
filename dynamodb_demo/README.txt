@@ -45,10 +45,26 @@ click [item01] -> Action -> Edit item
 # 刪除 Item 
 click [item03] -> Action -> delete item 
 
+# 讀取單一 Item 
+
+# 搜尋 Query Items
+ - 查看 Read Capacity 用量
+ - 限制: 無法查詢 is_vip 欄位 
+
+# 搜尋 Scqn Items 
+ - 查看 Read Capacity 用量
+
+# 刪除 Table
+ 
+
 ===== Python 程式碼操作 =====
+
+# 下載專案
+git clone 
 
 # 安裝第三方套件
 # - python 套件需要在 Lambda 根目錄底下
+cd basic
 python3 -m venv venv
 source venv/bin/activate
 pip3 install boto3
@@ -56,26 +72,52 @@ pip3 install boto3
 # 建立 Table 
 python3 dynamodb_01_create_table.py
 
-# 建立測試資料
+# 建立 Item 
+python3 dynamodb_02_add_items.py
+
+# 更新 Item  
+python3 dynamodb_03_update_items.py
+
+# 刪除 Item 
+python3 dynamodb_04_delete_items.py
+
+# 建立 Multiple Items 
 python3 dynamodb_05_add_items_1000.py
 python3 dynamodb_06_add_bulk_items_1000.py 
 
-# Get Item 示範 
+# 讀取單一 Item 
+python3 dynamodb_07_get_item.py
 
-# Query 示範 
- - 查看 Read Capacity 用量
- - 限制: 無法查詢 is_vip 欄位 
+# 搜尋 Query Items
+python3 dynamodb_08_query_item.py
 
-# Scan 示範 
- - 查看 Read Capacity 用量
+# 搜尋 Scqn Items 
+python3 dynamodb_09_scan_item.py
 
- ===== 建立 DAX ===== 
+# 刪除 Table
+python3 dynamodb_demo/basic/dynamodb_10_delete_table.py
 
- # 安裝第三方套件
-# - python 套件需要在 Lambda 根目錄底下
-python3 -m venv venv
-source venv/bin/activate
-pip3 install boto3
+===== 建立 Secondary Index ===== 
+
+# 建立 base table + LSI 
+python3 dynamodb_01_create_table_with_lsi.py
+python3 dynamodb_02_add_bulk_items_1000.py
+
+# 使用 LSI 
+python3 dynamodb_03_query_item_with_lsi.py
+
+# 建立 GSI 
+python3 dynamodb_04_create_gsi.py
+
+# 使用 GSI 
+python3 dynamodb_05_query_item_with_gsi.py
+
+# 刪除 base table + LSI + GSI 
+python3 dynamodb_06_delete_table_with_lsi.py
+
+===== 建立 DAX ===== 
+
+# 安裝第三方套件
 pip3 install amazon-dax-client
 
 # 建立 VPC 

@@ -16,8 +16,8 @@ if len(sys.argv) > 1:
     dynamodb = AmazonDaxClient(session, endpoints=[dax_cluster_endpoint], region_name=region)
     print("DAX in use.")
 
-table_name = "game-player-001"
-csv_file_path = "dynamodb_18_add_items_player.csv"  # Update this to the path of your CSV file
+table_name = "game-skill-001"
+csv_file_path = "dynamodb_02_add_items_skill.csv"  # Update this to the path of your CSV file
 
 # Function to convert string value to correct DynamoDB format
 def convert_to_dynamodb_format(val, dtype):
@@ -39,14 +39,14 @@ with open(csv_file_path, newline='') as csvfile:
         # Convert CSV row to DynamoDB item format
         item = {
             "name": convert_to_dynamodb_format(row["name"], 'S'),
-            "money": convert_to_dynamodb_format(row["money"], 'N'),
-            "skills": convert_to_dynamodb_format(json.loads(row["skills"]), 'SS'),  # Parse the string list
+            "price": convert_to_dynamodb_format(row["price"], 'N'),
+            "is_available": convert_to_dynamodb_format(row["is_available"], 'S')
         }
         
         # Add the item to DynamoDB
         response = dynamodb.put_item(TableName=table_name, Item=item)
         item_count += 1
-        print(f"Finished adding item ({row['name']}, {row['money']})")
+        print(f"Finished adding item ({row['name']}, {row['price']})")
 
 print(f"Finished adding all {item_count} items from CSV.")
 duration = time.time() - start_time

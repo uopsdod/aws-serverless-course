@@ -5,7 +5,7 @@ region = 'us-east-2'
 session = botocore.session.get_session()
 dynamodb = session.create_client('dynamodb', region_name=region)
 
-table_name = "game-python-001"
+table_name = "game-python-index-001"
 gsi_name = "gsi-vip-hour"
 
 # Update the table to add a GSI
