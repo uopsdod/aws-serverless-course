@@ -121,7 +121,7 @@ python3 dynamodb_08_query_item.py
 # 搜尋 Scqn Items 
 python3 dynamodb_09_scan_item.py
 
-# 刪除 Table
+# 刪除 Table (optional)
 python3 dynamodb_demo/basic/dynamodb_10_delete_table.py
 
 ===== 建立 Secondary Index ===== 
@@ -136,27 +136,19 @@ python3 dynamodb_02_add_bulk_items_1000.py
 # 使用 LSI 
 python3 dynamodb_03_query_item_with_lsi.py
 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/secondary_index
+
 # 建立 GSI 
 python3 dynamodb_04_create_gsi.py
 
 # 使用 GSI 
 python3 dynamodb_05_query_item_with_gsi.py
 
-# 刪除 base table + LSI + GSI 
+# 刪除 base table + LSI + GSI (optional)
 python3 dynamodb_06_delete_table_with_lsi.py
 
 ===== 建立 DAX ===== 
-
-# 進入本單元專案目錄
-cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
-
-# 安裝第三方套件
-pip3 install boto3
-pip3 install amazon-dax-client
-
-# 建立 VPC 
-- select "VPC and more"
-- name: "vpc-dynamodb-001"
 
 # 建立 Security Group
 - name: "dynamodb-dax-sg-001"
@@ -176,31 +168,27 @@ pip3 install amazon-dax-client
   - pick security Group "dynamodb-dax-sg-001"
 - create an IAM role: 
  - name: "dax-to-dynamodb-role-001"
+ - policy name: "DAXFullAccess-dax-to-dynamodb-role-001"
 - Parameter Group
+ - name: "dax-parameter-group-001"
  - TTL: Item time-to-live (TTL) set to 1 minute
  - TTL: Query time-to-live (TTL) set to 1 minute 
 
-# 建立 IAM Role for EC2
-- name: "dynamodb-dax-ec2-role"
-- policy: 
-
-# 建立 EC2 Instance 
-- name: "dynamodb-dax-ec2-001"
-- no key pair 
-- vpc: "vpc-dynamodb-001"
-- subnet: pick public ones
-- enable public ip 
-- click Advanced setting
- - pick role "dynamodb-dax-ec2-role"
+===== 使用 DAX - Cache 機制示範 ===== 
 
 # 進入 EC2 Instance 
 
-===== 使用 DAX - Cache 機制示範 ===== 
+# 進入本單元專案目錄
+cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
+
+# 安裝第三方套件
+pip3 install boto3
+pip3 install amazon-dax-client
 
 # 設定 DAX Endpoint 環境參數 
 DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
 
-# 建立 Table 
+# 建立 Table (no need anymore, cuz I didn't delete tables before at all)
 python3 dynamodb_01_create_table.py
 python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 
@@ -219,19 +207,19 @@ python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 # 建立 Table 
 python3 dynamodb_01_create_table.py 
 
-# 收到空白內容 
+# 收到空內容 
 python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 建立測試資料
 python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 
-# 收到空白內容 (Cached)
+# 收到空內容 (Cached)
 python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
 # 收到內容 (after 5 mins ...)
 python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 
-# 刪除 Table 
+# 刪除 Table (optional)
 python3 dynamodb_10_delete_table.py
 
 ===== 使用 DAX ===== 
@@ -239,7 +227,6 @@ python3 dynamodb_10_delete_table.py
 # Item Read/Write 都可利用 DAX 
 
 cd ~/aws-serverless-course/dynamodb_demo/basic_with_dax
-python3 dynamodb_01_create_table.py
 python3 dynamodb_02_add_items.py $DAX_ENDPOINT
 python3 dynamodb_03_update_items.py $DAX_ENDPOINT
 python3 dynamodb_04_delete_items.py $DAX_ENDPOINT
@@ -248,16 +235,12 @@ python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 python3 dynamodb_07_get_item.py $DAX_ENDPOINT
 python3 dynamodb_08_query_item.py $DAX_ENDPOINT
 python3 dynamodb_09_scan_item.py $DAX_ENDPOINT
-python3 dynamodb_10_delete_table.py
 
 cd ~/aws-serverless-course/dynamodb_demo/secondary_index
-python3 dynamodb_01_create_table_with_lsi.py
 python3 dynamodb_02_add_bulk_items_1000.py $DAX_ENDPOINT
 python3 dynamodb_03_query_item_with_lsi.py $DAX_ENDPOINT
-python3 dynamodb_04_create_gsi.py
 python3 dynamodb_05_query_item_with_gsi.py $DAX_ENDPOINT
-python3 dynamodb_06_delete_table_with_lsi.py
-
+ 
 ===== Transaction =====
 
 # 進入本單元專案目錄
@@ -275,7 +258,7 @@ python3 dynamodb_05_add_items_in_transaction.py
 # Transaction 模擬失敗狀況 
 python3 dynamodb_06_add_items_in_transaction_error.py
 
-# 刪除 Tables
+# 刪除 Tables(optional)
 python3 dynamodb_07_delete_table_skill.py
 python3 dynamodb_08_delete_table_player.py
 
@@ -294,12 +277,8 @@ python3 dynamodb_04_update_item_versioning_slow.py
 
 (open the 2nd terminals)
 cd ~/aws-serverless-course/dynamodb_demo/versioning
-python3 -m venv venv
-source venv/bin/activate
-pip3 install boto3
 python3 dynamodb_05_update_item_versioning_slow_interrupt.py
 
-(check version on Console)
 (go back to the 1st terminal)
 - expect: see version conflict error 
 
@@ -307,8 +286,8 @@ python3 dynamodb_06_delete_table_skill_version.py
 
 ===== 資源清理 =====
 
-# 清理 
-EC2 
+# 資源清理 (照著以下順序)
+EC2 Instance 
 DAX - Cluster 
 DAX - Subnet Group
 DynamoDB Table
@@ -317,3 +296,4 @@ VPC
 
 IAM Role for EC2
 IAM Role for DAX 
+IAM Policy for DAX 
