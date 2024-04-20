@@ -11,8 +11,7 @@
     ]
   },
   "queryStringParameters": {
-    "education": "college",
-    "age": "23"
+    "education": "college"
   },
   "multiValueQueryStringParameters": {
     "education": [

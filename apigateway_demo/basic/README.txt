@@ -1,40 +1,40 @@
-
-# add cloudwatch role to your account for api gateway 
- - use case: API Gateway 
- - policy: AmazonAPIGatewayPushToCloudWatchLogs
-- role name: api-role-for-cloudwatch
-
-# create a lambda function 
+# 建立 lambda function 
  - name: "lambda-for-apigateway-001"
  - runtime: python 3.12
 
-# deploy lambda function 
+# 部署 lambda function 
+ - code: https://github.com/uopsdod/aws-serverless-course/blob/main/apigateway_demo/lambda_userprofile.py
+ - input: https://github.com/uopsdod/aws-serverless-course/blob/main/apigateway_demo/lambda_userprofile_event.txt
+ - click 'Deploy'
 
-
-# create a api gateway 
+# 建立 api gateway 
  - api type: REST API 
- - name: "api-lambda-profile-002"
+ - name: "api-lambda-profile-001"
  - api endpoint type: regional 
 
-# create a resource 
+# 建立 resource 
  - resource name: users
  - resource name: {name}
 
-# create a method
- - method type: ANY
+# 建立 method
+ - method type: GET
  - Integration type: Lambda 
  - enable 'Lambda proxy Integration'
  - select lambda function 
+ - click 'Create method'
  - click 'Deploy API'
   - click *New Stage*
   - name: "prod"
 
 # Go to Stages 
  - expand prod/users/{name}
+ - click 'GET' 
  - copy url (example: https://whrxkgjfi8.execute-api.us-east-2.amazonaws.com/prod/users/{name})
  - replace the path variable: 
-  - example: https://whrxkgjfi8.execute-api.us-east-2.amazonaws.com/prod/users/katty
   - example: https://whrxkgjfi8.execute-api.us-east-2.amazonaws.com/prod/users/sam 
+  - example: https://whrxkgjfi8.execute-api.us-east-2.amazonaws.com/prod/users/katty
+
+
 
 
 

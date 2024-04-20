@@ -1,0 +1,18 @@
+{
+  "principalId": "user",
+  "policyDocument": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "execute-api:Invoke",
+        "Effect": "Allow",
+        "Resource": "arn:aws:execute-api:us-east-1:123456789012:example/prod/POST/{proxy+}"
+      }
+    ]
+  },
+  "context": {
+    "stringKey": "stringval",
+    "numberKey": 123,
+    "booleanKey": true
+  }
+}
