@@ -1,0 +1,50 @@
+{
+  "resource": "/users/{name}/profile",
+  "path": "/users/katty/profile",
+  "httpMethod": "GET",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "multiValueHeaders": {
+    "Content-Type": [
+      "application/json"
+    ]
+  },
+  "queryStringParameters": {
+    "education": "college",
+    "age": "23"
+  },
+  "multiValueQueryStringParameters": {
+    "education": [
+      "college"
+    ],
+    "age": [
+      "23"
+    ]
+  },
+  "pathParameters": {
+    "name": "katty"
+  },
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "abckatty",
+    "resourcePath": "/users/{name}/profile",
+    "httpMethod": "GET",
+    "extendedRequestId": "XYZ456",
+    "requestTime": "13/Apr/2024:12:34:56 +0000",
+    "path": "/users/katty/profile",
+    "accountId": "katty456789012",
+    "protocol": "HTTP/1.1",
+    "stage": "prod",
+    "domainPrefix": "example",
+    "requestTimeEpoch": 1681400096000,
+    "requestId": "c6af9ac6-7b61-11e6-9a41-000000000000",
+    "identity": {
+      "sourceIp": "katty.katty.katty.katty",
+      "userAgent": "Custom User Agent String"
+    },
+    "apiId": "katty4567890"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}
