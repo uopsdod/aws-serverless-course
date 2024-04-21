@@ -2,8 +2,9 @@
 # 建立 Lambda Function 
  - name: "lambda-authorizer-001"
  - runtime: python 3.12
- - code: _____ 
+ - code: https://github.com/uopsdod/aws-serverless-course/blob/main/apigateway_demo/authorizer_lambda/lambda_authorizer.py
  - click 'Deploy' 
+ - input: https://github.com/uopsdod/aws-serverless-course/blob/main/apigateway_demo/authorizer_lambda/lambda_authorizer_event.json
 
 # 建立 IAM Role 
  - use case: Lambda  
@@ -35,11 +36,13 @@
 ==== 
 
 # 建立 Lambda Authorizer 
- - name: "lambda-authorizer-001"
+ - go to api gateway: your API 
+ - name: "api-lambda-authorizer-001"
  - type: Lambda 
  - role: arn of iam role "role-for-api-lambda-authorizer" 
  - event payload: Token 
  - token source: "authorizationToken" 
+ - disable caching
 
 # 測試 Lambda Authorizer 
  - "allow": expect 200 response with Allow effect 
@@ -65,6 +68,4 @@ curl https://qdfw4ssbx5.execute-api.us-east-2.amazonaws.com/prod/users/katty -H 
  - expect: 200 allow result  
 curl https://qdfw4ssbx5.execute-api.us-east-2.amazonaws.com/prod/users/katty -H "authorizationToken: deny" 
  - expect: 200 deny result  
-
-??? Grant API Gateway permission to invoke your Lambda function. To turn off, update the function's resource policy yourself, or provide an invoke role that API Gateway uses to invoke your function.
 
