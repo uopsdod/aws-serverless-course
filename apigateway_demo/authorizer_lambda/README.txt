@@ -60,12 +60,11 @@
  - click 'GET' 
 
 curl https://qdfw4ssbx5.execute-api.us-east-2.amazonaws.com/prod/users/katty
- - expect: Unauthorized
+ - expect: 401 Unauthorized
 curl https://qdfw4ssbx5.execute-api.us-east-2.amazonaws.com/prod/users/katty -H "authorizationToken: allow" 
- - expect: allow result  
+ - expect: 200 allow result  
 curl https://qdfw4ssbx5.execute-api.us-east-2.amazonaws.com/prod/users/katty -H "authorizationToken: deny" 
- - expect: deny result  
-
+ - expect: 200 deny result  
 
 ??? Grant API Gateway permission to invoke your Lambda function. To turn off, update the function's resource policy yourself, or provide an invoke role that API Gateway uses to invoke your function.
 

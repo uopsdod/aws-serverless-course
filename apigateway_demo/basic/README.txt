@@ -14,7 +14,9 @@
 
 # 建立 resource 
  - resource name: users
+  - enable CORS 
  - resource name: {name}
+  - enable CORS 
 
 # 建立 method
  - method type: GET

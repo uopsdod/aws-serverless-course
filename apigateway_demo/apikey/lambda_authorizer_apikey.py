@@ -1,25 +1,20 @@
-# A simple token-based authorizer example to demonstrate how to use an authorization token
-# to allow or deny a request. In this example, the caller named 'user' is allowed to invoke
-# a request if the client-supplied token value is 'allow'. The caller is not allowed to invoke
-# the request if the token value is 'deny'. If the token value is 'unauthorized' or an empty
-# string, the authorizer function returns an HTTP 401 status code. For any other token value,
-# the authorizer returns an HTTP 500 status code.
-# Note that token values are case-sensitive.
-
 import json
+import os  # Import os module to access environment variables
 
 def lambda_handler(event, context):
     print("event: ", event)
     token = event['authorizationToken']
     print("token: ", token)
     print("methodArn: ", event['methodArn'])
+
+    apikey = get_apikey(token)
     
     if token == 'allow':
         print('authorized')
-        response = generatePolicy('user', 'Allow', event['methodArn'])
+        response = generatePolicy('user', 'Allow', event['methodArn'], apikey)
     elif token == 'deny':
         print('unauthorized')
-        response = generatePolicy('user', 'Deny', event['methodArn'])
+        response = generatePolicy('user', 'Deny', event['methodArn'], apikey)
     elif token == 'unauthorized':
         print('unauthorized')
         raise Exception('Unauthorized')  # Return a 401 Unauthorized response
@@ -30,10 +25,16 @@ def lambda_handler(event, context):
         print('unauthorized')
         return 'unauthorized'  # Return a 500 error
 
-def generatePolicy(principalId, effect, resource):
+def get_apikey(token):
+    # Use the environment variable if token is 'allow'
+    if token == 'allow':
+        return os.getenv('API_KEY', '')  # Return empty string if API_KEY is not set
+    return ""
+
+def generatePolicy(principalId, effect, resource, apikey):
     authResponse = {}
     authResponse['principalId'] = principalId
-    if (effect and resource):
+    if effect and resource:
         policyDocument = {}
         policyDocument['Version'] = '2012-10-17'
         policyDocument['Statement'] = []
@@ -48,5 +49,7 @@ def generatePolicy(principalId, effect, resource):
         "numberKey": 123,
         "booleanKey": True
     }
+    if apikey:
+        authResponse['usageIdentifierKey'] = apikey
     authResponse_JSON = json.dumps(authResponse)
     return authResponse_JSON
