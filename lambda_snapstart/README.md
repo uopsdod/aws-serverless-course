@@ -1,5 +1,25 @@
 
+# 專案目錄 
+https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart
+
+# 開啟 Cloud9 
+ - name: "lambda-snapstart"
+
+# 查看 Java 版本
+java --version
+
 # 下載 mvn 
+sudo yum install -y maven
+mvn --version
+
+# 下載專案
+git clone https://github.com/uopsdod/aws-serverless-course.git
+cd aws-serverless-course/lambda_snapstart/function-sample-aws
+
+# 建立 Jar 部署檔案 
+
+
+
 - file name: apache-maven-3.9.6-bin.zip
  - https://maven.apache.org/download.cgi
 
