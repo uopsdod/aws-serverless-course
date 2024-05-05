@@ -74,7 +74,6 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
  - 1st: 先看到 "afterRestore hook"
  - 2nd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
 
-
 # 資源清理 
 Cloud9 Environment 
 Labmda Function 
