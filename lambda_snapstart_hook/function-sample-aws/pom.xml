@@ -53,6 +53,11 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.crac</groupId>
+			<artifactId>crac</artifactId>
+			<version>1.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

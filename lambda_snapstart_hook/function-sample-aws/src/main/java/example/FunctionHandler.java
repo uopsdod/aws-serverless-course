@@ -8,8 +8,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//0. Import CRaC: Resource/Core
+import org.crac.Resource;
+import org.crac.Core;
 
-public class FunctionHandler implements RequestHandler<Map<String, Object>, String> {
+//1. Implement the Resource interface
+public class FunctionHandler implements RequestHandler<Map<String, Object>, String>, Resource {
 
     private final Logger logger = LoggerFactory.getLogger(FunctionHandler.class);
     private static boolean isDbConnectionBuilt = false;
@@ -21,8 +25,9 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
         System.out.println("static initialization ends");
     }
     public FunctionHandler() {
+        // 2. Register the FunctionHandler in the global context
+        Core.getGlobalContext().register(this);
     }
-
     public String handleRequest(Map<String, Object> input, Context context) {
         System.out.println("handler starts");
         try {
@@ -37,7 +42,19 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
             System.out.println("handler ends");
         }
     }
-    
+
+    //3. Implement the before checkpoint hook
+    @Override
+    public void beforeCheckpoint(org.crac.Context<? extends Resource> context) {
+        logger.info("Hello from before checkpoint hook");
+    }
+
+    //4. Implement the after restore hook
+    @Override
+    public void afterRestore(org.crac.Context<? extends Resource> context) {
+        logger.info("Hello from afterRestore hook");
+    }
+
     private static void createDatabaseConnection() {
         if (!isDbConnectionBuilt) {
             System.out.println("DB connection is being built");

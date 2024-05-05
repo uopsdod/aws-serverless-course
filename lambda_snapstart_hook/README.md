@@ -1,6 +1,6 @@
 
 # 專案目錄 
-https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart
+https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart_hook
 
 # 開啟 Cloud9 
  - name: "lambda-snapstart"
@@ -35,7 +35,7 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
 - example: "https://lambda-snapstart-oinpjniokiuhiu.s3.us-east-2.amazonaws.com/target/function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
 
 # 建立 Lambda Function 
- - name: "function-snapstart-001"
+ - name: "function-snapstart-hook-001"
  - runtime: Java 
 
 # 更新 Lambda Handler Code 
@@ -44,12 +44,6 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
  - handler: "example.FunctionHandler::handleRequest"
 # 更新 Timeout 
 # 測試 
- - 放上 Input
-=====
-{
-    "name": "Sam001"
-}
-===== 
  - 注意執行時間
   - Init Duration: 5s
   - (Handler) Duration: 3s
