@@ -51,7 +51,8 @@ ls -lh ./target
 
 # 部署 Lambda Handler Code + SnapStart Hooks 
 
-
 # Maven 
- mvn clean package
- 
+mvn clean package
+ - jar path: "function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
+
+
