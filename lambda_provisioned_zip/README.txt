@@ -1,28 +1,29 @@
 ===== AWS Lambda Provisioned Concurrency ===== 
 
+(畫面放大 125%)
+
 # 提升 Provisioned Concurrency Quota 
 
 # 確認 Provisioned Concurrency Quota 
 
 # 建立 Lambda 
-- name: lambda_function_with_db
+- name: lambda_function_with_db_001
 - runtime: python3.12
-- code: lambda_function_with_db.py
-
-# 設定 handler 
-- lambda_function_with_db.lambda_handler 
 
 # 設定 Timeout to 5 min 
 - Configuration > General > Timeout
 
-# 建立 version 
-
-# 建立 alias 
+# 更新程式碼 
+- code: lambda_function_with_db.py
 
 # 測試 Lambda (Console)
 - 切換到 alias 
 - 點擊 Test: 等待 Initialization 
 - 點擊 Test: 馬上取得回應 
+
+# 建立 version 
+
+# 建立 alias 
 
 # 測試 Lambda (Console)
 - 設定秒數為 30 秒 
