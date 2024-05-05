@@ -14,7 +14,7 @@ mvn --version
 
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course.git
-cd aws-serverless-course/lambda_snapstart/function-sample-aws
+cd aws-serverless-course/lambda_snapstart
 
 # 查看 Handler 程式碼 
  - file: "FunctionHandler.java"
@@ -40,9 +40,13 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
 
 # 更新 Lambda Handler Code 
  - S3 Jar URL
+
 # 更新 Lambda Handler 設定 
  - handler: "example.FunctionHandler::handleRequest"
+
 # 更新 Timeout 
+ - 5 min 
+
 # 測試 
  - 放上 Input
 =====
@@ -54,20 +58,5 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
   - Init Duration: 5s
   - (Handler) Duration: 3s
  - 查看 log 
-
-# 啟用 SnapStart 
- - Configuration > General configuration > Edit > SnapStart: PublishedVersions
-
-# 建立 Version v1 
- - 注意: "Creating version 1 of function ... SnapStart adds a few minutes to the version creation process." 
-
-# 測試 Version v1 
-- 注意執行時間
- - Init Duration: 0s
- - Restore Duration: 0.3s
- - (Handler) Duration: 3s
-- 查看 log 
- - 1st: 先看到 "afterRestore hook"
- - 2nd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
-
-
+  - Function Init
+  - Function Invoke 
