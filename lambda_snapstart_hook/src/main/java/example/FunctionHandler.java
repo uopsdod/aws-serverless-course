@@ -24,10 +24,12 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
         createDatabaseConnection();
         System.out.println("static initialization ends");
     }
+
     public FunctionHandler() {
         // 2. Register the FunctionHandler in the global context
         Core.getGlobalContext().register(this);
     }
+    
     public String handleRequest(Map<String, Object> input, Context context) {
         System.out.println("handler starts");
         try {

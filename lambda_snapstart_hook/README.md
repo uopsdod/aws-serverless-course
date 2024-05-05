@@ -6,8 +6,8 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart_hook
  - name: "lambda-snapstart"
 
 # 下載專案
-git clone https://github.com/uopsdod/aws-serverless-course.git
-cd aws-serverless-course/lambda_snapstart_hook/function-sample-aws
+cd aws-serverless-course/lambda_snapstart_hook/
+git pull 
 
 # 查看程式碼 
  - pom.xml: "crac" dependency 

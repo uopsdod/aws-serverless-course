@@ -20,6 +20,7 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
         createDatabaseConnection();
         System.out.println("static initialization ends");
     }
+    
     public FunctionHandler() {
     }
 
