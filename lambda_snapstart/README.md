@@ -3,7 +3,7 @@
 https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart
 
 # 開啟 Cloud9 
- - name: "lambda-snapstart-hook"
+ - name: "lambda-snapstart"
 
 # 查看 Java 版本
 java --version
@@ -14,7 +14,7 @@ mvn --version
 
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course.git
-cd aws-serverless-course/lambda_snapstart_hook
+cd aws-serverless-course/lambda_snapstart
 
 # 查看 Handler 程式碼 
  - file: "FunctionHandler.java"
@@ -25,7 +25,7 @@ ls -lh target/ | grep "jar"
 JAR_PATH="target/function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
 
 # 建立 S3 bucket 
-S3_BUCKET="lambda-snapstart-hook-owiejdqiluwehd"
+S3_BUCKET="lambda-snapstart-owiejdqiluwehd"
 aws s3 mb "s3://${S3_BUCKET}"
 
 # 上傳 Jar 檔案到 S3 bucket 
@@ -35,7 +35,7 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
 - example: "https://lambda-snapstart-oinpjniokiuhiu.s3.us-east-2.amazonaws.com/target/function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
 
 # 建立 Lambda Function 
- - name: "function-snapstart-hook-001"
+ - name: "function-snapstart-001"
  - runtime: Java 
 
 # 更新 Lambda Handler Code 
@@ -79,3 +79,5 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
  - Restore Duration: 0.6s
  - (Handler) Duration: 3s
 - 查看 log 
+
+
