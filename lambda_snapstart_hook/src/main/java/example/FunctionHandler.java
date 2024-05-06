@@ -18,6 +18,7 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
 
     private final Logger logger = LoggerFactory.getLogger(FunctionHandler.class);
     private static boolean isDbConnectionBuilt = false;
+    private static String executionEnvironmentUUID;
 
     // static initialization
     static {
@@ -33,6 +34,7 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
     
     public String handleRequest(Map<String, Object> input, Context context) {
         System.out.println("handler starts");
+        System.out.println("executionEnvironmentUUID: " + executionEnvironmentUUID);
         try {
             createDatabaseConnection();
             Thread.sleep(3000); // processing main logic 1
@@ -59,7 +61,8 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
     public void afterRestore(org.crac.Context<? extends Resource> context) {
         logger.info("after-restore hook:");
         logger.info("after-restore hook: Refreshing Access Key if necessary ... ");
-        logger.info("after-restore hook: Generating Unique Key: " + UUID.randomUUID());
+        executionEnvironmentUUID = UUID.randomUUID().toString();
+        logger.info("after-restore hook: Generating Unique Key: " + executionEnvironmentUUID);
     }
 
     private static void createDatabaseConnection() {

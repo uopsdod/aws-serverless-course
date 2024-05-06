@@ -38,8 +38,31 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
 # 更新 Lambda Handler 設定 
  - handler: "example.FunctionHandler::handleRequest"
 
-# 更新 Timeout 
- - 5 min 
+# 啟用 SnapStart + 更新 Timeout 
+ - Configuration > General configuration > Edit > SnapStart: PublishedVersions
+ - Configuration > General configuration > Edit > Timeout: 5 min 
+
+# 建立 Version v1 
+ - 注意: "Creating version 1 of function ... SnapStart adds a few minutes to the version creation process." 
+
+# 測試 Version v1 
+ - 放上 Input 
+=====
+{
+    "name": "Sam001"
+}
+===== 
+- 注意執行時間
+ - Init Duration: 0s
+ - Restore Duration: 0.6s
+ - (Handler) Duration: 3s
+- 查看 log 
+ - 1st: 先看到 "afterRestore hook"
+ - 2nd: 查看 UUID
+  - 再執行一次 Test, 查看 UUID
+ - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
+
+
 
 # 測試
  - 放上 Input 
