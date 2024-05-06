@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,13 +49,17 @@ public class FunctionHandler implements RequestHandler<Map<String, Object>, Stri
     //3. Implement the before checkpoint hook
     @Override
     public void beforeCheckpoint(org.crac.Context<? extends Resource> context) {
-        logger.info("Hello from before checkpoint hook");
+        logger.info("before-checkpoint hook: ");
+        logger.info("before-checkpoint hook: Loading extra local files ... ");
+        logger.info("before-checkpoint hook: Initializing more classes ... ");
     }
 
     //4. Implement the after restore hook
     @Override
     public void afterRestore(org.crac.Context<? extends Resource> context) {
-        logger.info("Hello from afterRestore hook");
+        logger.info("after-restore hook:");
+        logger.info("after-restore hook: Refreshing Access Key if necessary ... ");
+        logger.info("after-restore hook: Generating Unique Key: " + UUID.randomUUID());
     }
 
     private static void createDatabaseConnection() {

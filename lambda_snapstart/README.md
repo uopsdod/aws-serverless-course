@@ -60,3 +60,23 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
  - 查看 log 
   - Function Init
   - Function Invoke 
+
+
+# 啟用 SnapStart 
+ - Configuration > General configuration > Edit > SnapStart: PublishedVersions
+
+# 建立 Version v1 
+ - 注意: "Creating version 1 of function ... SnapStart adds a few minutes to the version creation process." 
+
+# 測試 Version v1 
+ - 放上 Input 
+=====
+{
+    "name": "Sam001"
+}
+===== 
+- 注意執行時間
+ - Init Duration: 0s
+ - Restore Duration: 0.6s
+ - (Handler) Duration: 3s
+- 查看 log 
