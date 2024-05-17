@@ -1,0 +1,22 @@
+{
+  "ModelName.$": "$$.Execution.Name",
+  "TransformInput": {
+    "CompressionType": "None",
+    "ContentType": "text/csv",
+    "DataSource": {
+      "S3DataSource": {
+        "S3DataType": "S3Prefix",
+        "S3Uri": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/csv/test.csv"
+      }
+    }
+  },
+  "TransformOutput": {
+    "S3OutputPath": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/output"
+  },
+  "TransformResources": {
+    "InstanceCount": 1,
+    "InstanceType": "ml.m5.xlarge"
+  },
+  "RoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role",
+  "TransformJobName.$": "$$.Execution.Name"
+}

@@ -1,0 +1,10 @@
+{
+    "PrimaryContainer": {
+        "Image": "811284229777.dkr.ecr.us-east-1.amazonaws.com/xgboost:latest",
+        "Environment": {},
+        "ModelDataUrl.$": "$.ModelArtifacts.S3ModelArtifacts"
+    },
+    "RoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role",
+    "ExecutionRoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role",
+    "ModelName.$": "$.TrainingJobName"
+}

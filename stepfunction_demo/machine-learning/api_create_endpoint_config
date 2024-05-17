@@ -1,0 +1,11 @@
+{
+  "EndpointConfigName.$": "$.TrainingJobName",
+  "ProductionVariants": [
+    {
+      "VariantName": "AllTraffic",
+      "ModelName.$": "$.TrainingJobName",
+      "InstanceType": "ml.m5.xlarge",
+      "InitialInstanceCount": 1
+    }
+  ]
+}

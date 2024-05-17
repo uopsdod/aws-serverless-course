@@ -1,0 +1,37 @@
+{
+    "AlgorithmSpecification": {
+        "TrainingImage": "811284229777.dkr.ecr.us-east-1.amazonaws.com/xgboost:latest",
+        "TrainingInputMode": "File"
+    },
+    "OutputDataConfig": {
+        "S3OutputPath": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/models"
+    },
+    "StoppingCondition": {
+        "MaxRuntimeInSeconds": 86400
+    },
+    "ResourceConfig": {
+        "InstanceCount": 1,
+        "InstanceType": "ml.m5.xlarge",
+        "VolumeSizeInGB": 30
+    },
+    "RoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role",
+    "InputDataConfig": [
+        {
+            "DataSource": {
+                "S3DataSource": {
+                    "S3DataDistributionType": "ShardedByS3Key",
+                    "S3DataType": "S3Prefix",
+                    "S3Uri": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/csv/train.csv"
+                }
+            },
+            "ChannelName": "train",
+            "ContentType": "text/csv"
+        }
+    ],
+    "HyperParameters": {
+        "objective": "reg:logistic",
+        "eval_metric": "rmse",
+        "num_round": "5"
+    },
+    "TrainingJobName.$": "$$.Execution.Name"
+}

@@ -1,0 +1,4 @@
+{
+  "EndpointConfigName.$": "$.TrainingJobName",
+  "EndpointName.$": "$.TrainingJobName"
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[65]:
+# In[32]:
 
 
 import boto3
@@ -14,6 +14,8 @@ import uuid
 # 0,12,25
 # 0,19,28
 # 1,98,25
+# [2] update S3 bucket name 
+# [3] update iam role 
 
 sagemaker_client = boto3.client('sagemaker')
 
@@ -24,9 +26,10 @@ hyper_parameter_xgboost = {
     "eval_metric": "rmse",
     "num_round": "5"
   }
-s3_bucket_output = 'stepfunctionssample-sagemake-bucketformodelanddata-fxj6mvkkagyt'
+s3_bucket_output = 'sagemaker-model-data-iqjdavibsdavsdfvgb'
+s3_bucket_output_prefix = 'models'
 # iam_role_sagemaker needs S3 access, SageMaker access 
-iam_role_sagemaker = "arn:aws:iam::659104334423:role/StepFunctionsSample-SageM-SageMakerAPIExecutionRole-8Mj2qJNWPgHE"
+iam_role_sagemaker = "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role"
 training_job_name = f"MyTrainingJobName001-{str(uuid.uuid4())}"
 training_params = {
   "AlgorithmSpecification": {
@@ -34,7 +37,7 @@ training_params = {
     "TrainingInputMode": "File"
   },
   "OutputDataConfig": {
-    "S3OutputPath": f"s3://{s3_bucket_output}/models"
+    "S3OutputPath": f"s3://{s3_bucket_output}/{s3_bucket_output_prefix}"
   },
   "StoppingCondition": {
     "MaxRuntimeInSeconds": 86400
@@ -67,18 +70,21 @@ print(f"Training job ARN: {response['TrainingJobArn']}")
 print(f"Training job name: {training_job_name}")
 
 
-# In[68]:
+# In[35]:
 
 
 # Describe the training job to get details
 response = sagemaker_client.describe_training_job(TrainingJobName=training_job_name)
 
 # Extract the S3 model artifact URL
-model_artifact_url = response['ModelArtifacts']['S3ModelArtifacts']
-print(f'S3 Model Artifact URL: {model_artifact_url}')
+if 'ModelArtifacts' in response:
+    model_artifact_url = response['ModelArtifacts']['S3ModelArtifacts']
+    print(f'S3 Model Artifact URL: {model_artifact_url}')
+else: 
+    print(f'training job is still being created.')
 
 
-# In[69]:
+# In[ ]:
 
 
 # Step 2: Create a Model
@@ -95,11 +101,8 @@ model_params = {
     'ExecutionRoleArn': iam_role_sagemaker
 }
 
-response = sagemaker_client.create_model(**model_params)
-print(f"Model ARN: {response['ModelArn']}")
 
-
-# In[70]:
+# In[36]:
 
 
 # Step 3: Deploy the Model to a Real-time Endpoint
@@ -130,9 +133,10 @@ response = sagemaker_client.create_endpoint(**endpoint_params)
 print(f"Endpoint ARN: {response['EndpointArn']}")
 
 
-# In[79]:
+# In[38]:
 
 
+# check whether endpoint is created
 try:
     # Describe the endpoint to get its details
     response = sagemaker_client.describe_endpoint(EndpointName=endpointName)
@@ -146,20 +150,20 @@ try:
     
     # Check if the endpoint is in service
     if endpoint_status == 'InService':
-        print(f'The endpoint {endpoint_name} is successfully created and in service.')
+        print(f'The endpoint {endpointName} is successfully created and in service.')
     elif endpoint_status == 'Creating':
-        print(f'The endpoint {endpoint_name} is still being created.')
+        print(f'The endpoint {endpointName} is still being created.')
     elif endpoint_status == 'Failed':
-        print(f'The creation of the endpoint {endpoint_name} has failed.')
+        print(f'The creation of the endpoint {endpointName} has failed.')
     else:
-        print(f'The endpoint {endpoint_name} is in status: {endpoint_status}')
+        print(f'The endpoint {endpointName} is in status: {endpoint_status}')
 except sagemaker_client.exceptions.ResourceNotFound:
-    print(f'The endpoint {endpoint_name} does not exist.')
+    print(f'The endpoint {endpointName} does not exist.')
 except Exception as e:
     print(f'Error describing the endpoint: {e}')
 
 
-# In[87]:
+# In[41]:
 
 
 # Step 4: Invoke the Endpoint for Real-time Predictions
@@ -167,6 +171,7 @@ runtime_client = boto3.client('sagemaker-runtime')
 
 # Example input data based on your training input
 input_data = '98,25'
+# input_data = '55,95'
 
 # probability score that represents the likelihood of the input belonging to the positive class (in this case, class 1)
 response = runtime_client.invoke_endpoint(
@@ -184,20 +189,10 @@ print(f'Binary predicted result: {binary_prediction}')
 
 
 
-# In[89]:
+# In[42]:
 
 
 # Clean Up: Endpoint , Endpoint Config, Model, S3 (training.csv, test.csv, S3 model artifact, S3 model)
-# Resource names 
-# bucket_name = 'stepfunctionssample-sagemake-bucketformodelanddata-fxj6mvkkagyt'
-output_key_prefix = 'models/'
-# train_data_key = 'csv/train.csv' 
-
-
-
-# In[90]:
-
-
 import boto3
 
 # Step 1: Delete the Endpoint
@@ -208,7 +203,7 @@ except Exception as e:
     print(f"Error deleting endpoint: {e}")
 
 
-# In[91]:
+# In[43]:
 
 
 # Step 2: Delete the Endpoint Configuration
@@ -220,7 +215,7 @@ except Exception as e:
 
 
 
-# In[92]:
+# In[44]:
 
 
 # Step 3: Delete the Model
@@ -232,7 +227,7 @@ except Exception as e:
 
 
 
-# In[93]:
+# In[45]:
 
 
 # Step 4: Clean up S3 Resources
@@ -246,12 +241,12 @@ s3_client = boto3.client('s3')
 
 # Delete model artifacts
 try:
-    response = s3_client.list_objects_v2(Bucket=s3_bucket_output, Prefix=output_key_prefix)
+    response = s3_client.list_objects_v2(Bucket=s3_bucket_output, Prefix=s3_bucket_output_prefix)
     if 'Contents' in response:
         for obj in response['Contents']:
             s3_client.delete_object(Bucket=s3_bucket_output, Key=obj['Key'])
             print(f"Deleted object: {obj['Key']}")
-    print(f"Deleted model artifacts under prefix: {output_key_prefix}")
+    print(f"Deleted model artifacts under prefix: {s3_bucket_output_prefix}")
 except Exception as e:
     print(f"Error deleting model artifacts: {e}")
 
