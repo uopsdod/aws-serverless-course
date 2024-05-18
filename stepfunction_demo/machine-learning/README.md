@@ -145,6 +145,10 @@ aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}"
  - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
 
 # 資源清理 
-Lambda Function 
-Cloud9 Environment 
-S3 Bucket
+ - Lambda Function 
+ - Step Function State Machine 
+ - SageMaker Endpoints 
+ - SageMaker Endpoints Config 
+ - SageMaker Endpoints Models 
+ - IAM Role * 2
+ - S3 Bucket
