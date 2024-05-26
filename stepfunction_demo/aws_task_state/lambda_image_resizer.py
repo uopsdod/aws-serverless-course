@@ -7,7 +7,12 @@ s3_client = boto3.client('s3')
 
 def resize_image(image_data, size):
     image = Image.open(BytesIO(image_data))
-    image = image.resize(size, Image.ANTIALIAS)
+    image = image.resize(size, Image.LANCZOS)
+    
+    # Convert image to RGB if it's RGBA
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+    
     output = BytesIO()
     image.save(output, format='JPEG')
     output.seek(0)
@@ -17,19 +22,21 @@ def lambda_handler(event, context):
     print('event: ', event)
     # bucket_name = event['Records'][0]['s3']['bucket']['name']
     # object_key = event['Records'][0]['s3']['object']['key']
-    bucket_name = 'XXXXX'
-    object_key = 'XXXXX'
+    bucket_name = event['bucket_name']
+    object_key = event['object_key']
+    image_size_target = event['taskoutput']['image_size_target'] # use taskoutput because of step function requirement
+    
+    filename = object_key.split('.')[0]
+    extension = object_key.split('.')[1]
 
     # Download the image from S3
     s3_response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
     image_data = s3_response['Body'].read()
 
     # Define the sizes and new keys
-    sizes = [(300, 300), (500, 500), (700, 700)]
+    sizes = [(image_size_target, image_size_target)]
     resized_keys = [
-        f"resized/300x300/{object_key}",
-        f"resized/500x500/{object_key}",
-        f"resized/700x700/{object_key}",
+        f"resized/{filename}_{image_size_target}x{image_size_target}.{extension}",
     ]
 
     # Resize and upload the images
@@ -39,5 +46,5 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'body': json.dumps('Images resized and uploaded successfully!')
+        'body': json.dumps(f'Images resized as {image_size_target}x{image_size_target} and uploaded successfully!')
     }
