@@ -1,6 +1,6 @@
 
 # 專案目錄 
-https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/machine-learning
+https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state_job_machine_learning
 
 # 建立 S3 bucket
  - name: "sagemaker-model-data-iqjdavibsdavsdfvgb"
