@@ -1,6 +1,6 @@
 
 # 專案目錄 
-https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state_callback 
+https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state_callback_sqs 
 
 # 建立 SQS 
  - type: "standard"
