@@ -2,6 +2,9 @@
 # 專案目錄 
 https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/activity_task_state
 
+# TODO: 請簡化步驟，不需要這麼多 Error Handling 了
+# TODO: 將 EventBridge 納入，實作出 Polling 的感覺 
+
 # 建立 Activity Task State 
  - name: "activity-001"
 

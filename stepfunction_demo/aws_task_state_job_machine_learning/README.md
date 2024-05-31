@@ -5,23 +5,30 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 # 建立 S3 bucket
  - name: "sagemaker-model-data-iqjdavibsdavsdfvgb"
 
-# 上傳 train.cvs & test.csv
- - prefix: "csv/"
+# 上傳訓練與測試資料 
+ - create prefix: "csv"
+ - 解說 train.csv
+ - 上傳 train.csv & test.csv
 
 # 建立 IAM Role
+ - use case: SageMaker 
  - name: "train-model-endpoint-predict-role"
- - policy: SageMaker, S3 
+ - policy: AmazonSageMakerFullAccess (added by default), AmazonS3FullAccess 
 
-# 啟動 SageMaker 
- - name: "train-model-endpoint-predict-sm"
+# 啟動 SageMaker Notebook 
+ - instance name: "train-model-endpoint-predict-sm"
  - instance type: "ml.t3.medium"
  - role: "train-model-endpoint-predict-role"
 
 # 上傳 ipynb 檔案
  - file: "xgboost-001.ipynb"
  - type: "conda_python3"
+ - (wait for 5 min ...)
+ - click 'Open Jupyter'
 
 # 執行 ipynb 
+ - update S3 bucket arn 
+ - update iam role 
 
 ====
 [use step function]
