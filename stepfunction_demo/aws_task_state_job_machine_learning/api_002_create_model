@@ -1,0 +1,9 @@
+{
+    "PrimaryContainer": {
+        "Image": "811284229777.dkr.ecr.us-east-1.amazonaws.com/xgboost:latest",
+        "Environment": {},
+        "ModelDataUrl.$": "$.ModelArtifacts.S3ModelArtifacts"
+    },
+    "ExecutionRoleArn.$": "$.RoleArn",
+    "ModelName.$": "$$.Execution.Name"
+}

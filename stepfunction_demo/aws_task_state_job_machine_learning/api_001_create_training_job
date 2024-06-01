@@ -4,7 +4,7 @@
         "TrainingInputMode": "File"
     },
     "OutputDataConfig": {
-        "S3OutputPath": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/models"
+        "S3OutputPath.$": "States.Format('s3://{}/models', $.S3BucketName)"
     },
     "StoppingCondition": {
         "MaxRuntimeInSeconds": 86400
@@ -14,14 +14,14 @@
         "InstanceType": "ml.m5.xlarge",
         "VolumeSizeInGB": 30
     },
-    "RoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role",
+    "RoleArn.$": "$.SageMakerIamRoleArn",
     "InputDataConfig": [
         {
             "DataSource": {
                 "S3DataSource": {
                     "S3DataDistributionType": "ShardedByS3Key",
                     "S3DataType": "S3Prefix",
-                    "S3Uri": "s3://sagemaker-model-data-iqjdavibsdavsdfvgb/csv/train.csv"
+                    "S3Uri.$": "States.Format('s3://{}/csv/train.csv', $.S3BucketName)"
                 }
             },
             "ChannelName": "train",

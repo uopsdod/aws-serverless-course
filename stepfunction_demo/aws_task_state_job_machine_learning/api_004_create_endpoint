@@ -1,0 +1,4 @@
+{
+  "EndpointConfigName.$": "$$.Execution.Name",
+  "EndpointName.$": "$$.Execution.Name"
+}

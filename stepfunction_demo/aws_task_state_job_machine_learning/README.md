@@ -16,7 +16,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - policy: AmazonSageMakerFullAccess (added by default), AmazonS3FullAccess 
 
 # 啟動 SageMaker Notebook 
- - instance name: "train-model-endpoint-predict-sm"
+ - instance name: "train-model-endpoint-predict-notebook"
  - instance type: "ml.t3.medium"
  - role: "train-model-endpoint-predict-role"
 
@@ -33,37 +33,57 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 ====
 [use step function]
 
+# 建立 S3 bucket
+ - name: "sagemaker-model-data-002-wefwfarf"
+
+# 上傳訓練與測試資料 
+ - create prefix: "csv"
+ - 解說 train.csv
+ - 上傳 train.csv & test.csv
+
+# 建立 IAM Role for Step Function 
+ - use case: Step Function 
+ - name: "train-model-endpoint-predict-role-for-step"
+ - policy: AWSLambdaRole (added by default), CloudWatchFullAccessV2, CloudWatcheventsFullAccess, AmazonSageMakerFullAccess 
+
+# 建立 IAM Role for SageMaker
+ - use case: SageMaker 
+ - name: "train-model-endpoint-predict-role-for-sagemaker"
+ - policy: AmazonSageMakerFullAccess (added by default), AmazonS3FullAccess 
+
+# 建立 Lambda Role 
+ - policy: AmazonSageMakerFullAccess, CloudWatchFullAccessV2
+ - name: "predict-role-for-lambda"
+
 # 建立 step function 
  1. SageMaker - CreatingTrainingJob
   - name: "Train model (XGBoost)"
   - API parameters: "api_create_training_job"
   - click "wait for the task to complete" 
  2. SageMaker - CreateModel 
-  - name: "Save Model"
   - API parameters: "api_create_model"
-  - click "ResultPath"
-   - select "Combine original input with result"
-   - path: "$.resultoutput"
-   - note: 使用 "$.TrainingJobName" 貫穿所有 state
  3. SageMaker - CreateEndpointConfig
-  - name: "SageMaker CreateEndpointConfig"
   - API parameters: "api_create_endpoint_config"
-  - click "ResultPath"
-   - select "Combine original input with result"
-   - path: "$.resultoutput"
-   - note: 使用 "$.TrainingJobName" 貫穿所有 state 
  4. SageMaker - CreateEndpoint
-  - name: "SageMaker CreateEndpoint"
   - API parameters: "api_create_endpoint"
+  - click "wait for the task to complete"? 
+ 5. Config >> update IAM Role 
 
-# 建立 Lambda Role 
- - policy: SageMaker 
- - name: "predict-lambda-role-001"
+# 執行 state machine  
+ - (wait for it to create?)
+=====
+{
+    "S3BucketName": "sagemaker-model-data-002-awfsdvadfbg",
+    "SageMakerIamRoleArn": "arn:aws:iam::659104334423:role/train-model-endpoint-predict-role-for-sagemaker"
+}
+=====
 
 # 建立 lambda function
  - name: "predict-lambda-001"
  - runtime: python 
- - role: "predict-lambda-role-001"
+ - role: "predict-role-for-lambda"
+ - code: "predict_lambda.py"
+ - click 'Deploy'
 
 # 測試 lambda function 01
  - file: "predict_lambda_input_01.txt"
@@ -74,11 +94,13 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - change endpoint name 
 
 # 資源清理
- - Sagemaker 
+ - Sagemaker Model / EndpointConfig / Endpoint 
+ - Step Function State Machine 
+ - Lambda Function 
  - S3 Bucket 
- - IAM Role
+ - IAM Roles 
 
-
+===== 
 
 
 
