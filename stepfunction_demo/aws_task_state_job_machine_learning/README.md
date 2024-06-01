@@ -66,7 +66,6 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
   - API parameters: "api_create_endpoint_config"
  4. SageMaker - CreateEndpoint
   - API parameters: "api_create_endpoint"
-  - click "wait for the task to complete"? 
  5. Config >> update IAM Role 
 
 # 執行 state machine  
@@ -89,9 +88,23 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - file: "predict_lambda_input_01.txt"
  - change endpoint name 
 
+=====
+{
+  "endpoint_name": "XXXXX",
+  "input_data": "98,25"
+}
+=====
+
 # 測試 lambda function 02
  - file: "predict_lambda_input_02.txt"
  - change endpoint name 
+
+=====
+{
+  "endpoint_name": "XXXXX",
+  "input_data": "55,95"
+}
+=====
 
 # 資源清理
  - Sagemaker Model / EndpointConfig / Endpoint 

@@ -1,4 +1,0 @@
-{
-  "endpoint_name": "79f506e4-5c5c-4bd6-ad87-ac79a082d8cd",
-  "input_data": "98,25"
-}
