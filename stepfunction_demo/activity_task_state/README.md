@@ -44,7 +44,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/act
 ---
 
 # 建立 EventBridge 
- - name: cr-reviewer-every-Xminutes
+ - name: "cr-reviewer-every-Xminutes"
  - occurence: Recurring schedule 
  - schedule type: Rate-based schedule 
   - 1 min 

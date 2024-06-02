@@ -17,10 +17,11 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/err
 
 # 更新 Lambda 程式碼 
  - code: "lambda_network_delay.py"
+ - click 'Deploy'
 
 # 建立 State Machine 
  - 建立 Lambda Invoke State 
-  - name: "Waiting for Code Review"
+  - name: "Potential Network Delay Call"
   - lambda: "lambda-network-delay-001"
   - Error Handling - 設定 Timeout: 5 seconds 
  - Create
