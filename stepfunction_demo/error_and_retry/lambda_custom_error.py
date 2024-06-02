@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     }
 
 def is_network_good():
-    if random.random() > (3/4):
+    if random.random() > (1/2):
         return True
     else:
         return False

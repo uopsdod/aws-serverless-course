@@ -6,7 +6,6 @@ def lambda_handler(event, context):
     stepfunctions = boto3.client('stepfunctions')
     activity_arn = 'arn:aws:states:us-east-1:659104334423:activity:activity-001'
     code_review_speed = 2 # 0 be the fatest 
-    is_accept_to_review_code = True
 
     try:
         response = stepfunctions.get_activity_task(
@@ -17,22 +16,14 @@ def lambda_handler(event, context):
         if 'taskToken' in response:
             print(f"Found Code Review request! - taskToken: {response['taskToken']}")
             print(f"Found Code Review request! - input: {response['input']}")
-            print(f"Your colleague is taking a look at your code ... ")
-        
-            if is_accept_to_review_code:
-                print(f"Your colleague accepts to review your code.")
-                activity_input = json.loads(response['input'])    
-                activity_output = doing_code_review(activity_input, code_review_speed)
-                stepfunctions.send_task_success(
-                    taskToken=response['taskToken'],
-                    output=json.dumps(activity_output)
-                )
-                print(f"Code Review is fininshed")
-            else:
-                print(f"Your colleague declines to review your code. ")
-                stepfunctions.send_task_failure(
-                    taskToken=response['taskToken']
-                )
+            print(f"Your colleague accepts to review your code.")
+            activity_input = json.loads(response['input'])    
+            activity_output = doing_code_review(activity_input, code_review_speed)
+            stepfunctions.send_task_success(
+                taskToken=response['taskToken'],
+                output=json.dumps(activity_output)
+            )
+            print(f"Code Review is fininshed")
         else: 
             print(f"No Code Review found")
     except Exception as e:

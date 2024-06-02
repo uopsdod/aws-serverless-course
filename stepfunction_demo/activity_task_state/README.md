@@ -2,85 +2,75 @@
 # 專案目錄 
 https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/activity_task_state
 
-# TODO: 請簡化步驟，不需要這麼多 Error Handling 了
-# TODO: 將 EventBridge 納入，實作出 Polling 的感覺 
-
 # 建立 Activity Task State 
- - name: "activity-001"
+ - name: "code-review-activity"
 
 # 建立 State Machine 
  - add 'Run Activity' Task State 
   - update name: "Waiting for Code Review"
- - enter activity arn 
- - Error Handling >> Timeout: get from input: "$.task_timeout"
- - Error Handling >> Add Retry: "States.Timeout"
- - Error Handling >> Add Retry: "States.TaskFailed"
+ - click 'Choose activity'  
  - click 'Create' 
 
 # 執行 State Machine 
  - input: 
 =====
 {
-  "line_of_code": 5,
-  "task_timeout": 20
+  "line_of_code": 5
 }
 ===== 
  - 等待 Activity Worker 去執行 
 
 # 建立 Lambda IAM Role
- - use case: AWSStepFunctionsFullAccess, CloudWatchFullAccessV2 
- - policy: Step Function 
+ - use case: Lambda    
+ - policy: AWSStepFunctionsFullAccess, CloudWatchFullAccessV2
  - name: "role-for-lambda-activity-worker"
 
 # 建立 Lambda Worker 
- - name: "activity-worker-001"
+ - name: "code-reviewer-001"
  - runtime: python 
  - pick role: "role-for-lambda-activity-worker"
  - configurtion >> general configuration >> timeout: 3 min 
  - code: activity_worker.py 
   - zoom in for recording (*****)
   - update Activity Arn 
+   click state >> Definition >> Activity Arn 
   - click 'Deploy'
 
 # 執行 Lambda - Success case 
- - click 'Test'   
+ - click Test tab >> 'Test'   
  - check state machine execution 
  - go back check labmda test logs 
 
 ---
 
+# 建立 EventBridge 
+ - name: cr-reviewer-every-Xminutes
+ - occurence: Recurring schedule 
+ - schedule type: Rate-based schedule 
+  - 1 min 
+ - Flexible time window 
+ - Target: Lambda 
+  - pick lambda function: "activity-worker-001"
+ - next next
+ - Create 
+
+# 檢查 Lambda Log 
+ - click Monitor >> CloudWatch Logs >> Recent invocations 
+
 # 執行 State Machine 
  - input: 
 =====
 {
-  "line_of_code": 5,
-  "task_timeout": 20
+  "line_of_code": 10
 }
 ===== 
  - 等待 Activity Worker 去執行 
 
-# 執行 Lambda - Failed case 
- - update is_accept_to_review_code to False
- - click 'Deploy'
- - click 'Test'   
- - check state machine execution >> Retry 
-
-# 執行 Lambda - Timeout case 
- - update is_accept_to_review_code to True
- - update code_review_speed to 5 
- - click 'Deploy'
- - click 'Test'   
- - check state machine execution >> Retry 
-
-# 執行 Lambda - Success case 
- - update code_review_speed to 2 
- - click 'Deploy'
- - click 'Test'   
- - check state machine execution >> Retry 
+# 檢查 Lambda Log 
 
 # 資源清理 
- - Step Function State Machine 
-  - you need to stop any Running state machine execution first 
- - Step Function Activity 
- - Lambda 
+ - Lambda Function 
  - IAM Role 
+ - EventBridge Schedule 
+ - Step Function State Machine 
+ - Step Function Activity 

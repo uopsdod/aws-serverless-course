@@ -1,32 +1,36 @@
 
 # 專案目錄 
-https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXXXX 
+https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/error_and_retry 
 
 # 建立 IAM Role 
  - use case: Lambda 
  - policy: CloudWatchFullAccessV2
  - name: "role-network-delay-001" 
 
-# 建立 Lambda 
+# 建立 Lambda  
  - name: "lambda-network-delay-001"
  - runtime: python 
  - role: "role-network-delay-001"
 
 # 設定 Lambda 
- - Configuration > General Configuration > Timeout: 5 min 
+ - Configuration > General Configuration > Timeout: 5 minutes  
 
 # 更新 Lambda 程式碼 
  - code: "lambda_network_delay.py"
 
 # 建立 State Machine 
- - 建立 Lambda 
-  - name: "lambda-network-delay-001"
+ - 建立 Lambda Invoke State 
+  - name: "Waiting for Code Review"
   - lambda: "lambda-network-delay-001"
-  - Error Handling - 設定 Timeout: 5s
+  - Error Handling - 設定 Timeout: 5 seconds 
+ - Create
 
 # 測試 State Machine 
  - 測出一個 OK
+  - click 'Events'
  - 測出一個 Timeout 
+  - click 'Events'
+  - expand 'Cause'  
 
 # 更新 State Machine
  - Error Handling 
@@ -35,7 +39,6 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXX
 
 # 測試 State Machine 
  - 查看 Events 
-
 
 # 示範 Custom Error 
 # 更新 Lambda 程式碼 
@@ -51,6 +54,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXX
  - Error Handling 
   - Retry on errors
    - Add New a Retrier: MyNetworkError 
+    - press Enter 
 
 # 測試 State Machine 
  - 查看 Events 
@@ -59,7 +63,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXX
   - note: 有 retry 發生
 
 # 資源清理 
- - Step Function State Machine 
  - Lambda Function 
+ - Step Function State Machine 
  - IAM Role 
  
