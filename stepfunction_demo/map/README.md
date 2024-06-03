@@ -1,6 +1,6 @@
 
 # 專案目錄 
-https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXXXX
+https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/map
 
 # 建立 S3 Bucket 
  - name: "step-function-map-gjcoidjvosid"
@@ -19,7 +19,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/XXX
 
 # 更新程式碼
  - code: "lambda_image_resizer_used-in-map.py" 
-  - XXXXX 
+  - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/map/lambda_image_resizer_used-in-map.py 
 
 # 新增 Layer for Pillow 套件  
  - Specify ARN: "arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p312-Pillow:2"
