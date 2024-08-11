@@ -1,8 +1,8 @@
 ===== AWS Lambda Provisioned Concurrency ===== 
 
-(畫面放大 125%)
-
 # 提升 Provisioned Concurrency Quota 
+- Service Quota > Lambda > Concurrent executions
+ - Requested quota value: 1,000 
 
 # 確認 Provisioned Concurrency Quota 
 
