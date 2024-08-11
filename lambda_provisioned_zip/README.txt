@@ -27,7 +27,7 @@ https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_provisioned_zi
 # 建立 alias 
 
 # 測試 Lambda (Console)
-- 設定秒數為 30 秒 
+- 設定秒數為 20 秒 
 - click 'Deploy' 重新部署 
 - 建立 new version 
 - 建立 new alias 
