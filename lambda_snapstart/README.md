@@ -14,6 +14,7 @@ mvn --version
 
 # 下載專案
 git clone https://github.com/uopsdod/aws-serverless-course.git
+
 cd aws-serverless-course/lambda_snapstart
 
 # 查看 Handler 程式碼 
