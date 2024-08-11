@@ -39,7 +39,7 @@ docker images
 docker push "${ECR_REPO_URL}:latest"
 
 # 建立 Lambda function 
-AWS_ACCOUNT=659104334423
+AWS_ACCOUNT=XXXXX
 LAMBDA_FUNCTION_NAME="docker-extension-function"
 aws lambda create-function  \
 --function-name $LAMBDA_FUNCTION_NAME  \
