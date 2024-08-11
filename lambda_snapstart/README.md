@@ -22,11 +22,14 @@ cd aws-serverless-course/lambda_snapstart
 
 # 建立 Jar 部署檔案 
 mvn clean package
+
 ls -lh target/ | grep "jar"
+
 JAR_PATH="target/function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
 
 # 建立 S3 bucket 
 S3_BUCKET="lambda-snapstart-owiejdqiluwehd"
+
 aws s3 mb "s3://${S3_BUCKET}"
 
 # 上傳 Jar 檔案到 S3 bucket 
