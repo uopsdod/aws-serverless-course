@@ -54,20 +54,20 @@ aws s3 cp "$JAR_PATH" "s3://${S3_BUCKET}/${JAR_PATH}"
 
 # 測試 Version v1 
  - 放上 Input 
-=====
+```
 {
     "name": "Sam001"
 }
-===== 
+```
 - 注意執行時間
- - Init Duration: 0s
- - Restore Duration: 0.6s
- - (Handler) Duration: 3s
+  - Init Duration: 0s
+  - Restore Duration: 0.6s
+  - (Handler) Duration: 3s
 - 查看 log 
- - 1st: 先看到 "afterRestore hook"
- - 2nd: 查看 UUID
-  - 再執行一次 Test, 查看 UUID
- - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
+  - 1st: 先看到 "afterRestore hook"
+  - 2nd: 查看 UUID
+- 再執行一次 Test, 查看 UUID
+  - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
 
 # 資源清理 
 Lambda Function 
