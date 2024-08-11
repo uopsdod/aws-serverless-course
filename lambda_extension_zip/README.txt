@@ -70,9 +70,9 @@ zip -r extension.zip .
 aws lambda publish-layer-version \
  --layer-name "python-example-extension" \
  --zip-file  "fileb://extension.zip"
+LAYER_VERSION_EXTENSION_ARN=arn:aws:lambda:us-east-2:659104334423:layer:python-example-extension:2
 
 # 使用 Lambda Extension Layer
-LAYER_VERSION_EXTENSION_ARN=arn:aws:lambda:us-east-2:659104334423:layer:python-example-extension:2
 aws lambda update-function-configuration \
     --function-name $LAMBDA_FUNCTION_NAME \
     --layers $LAYER_VERSION_ARN $LAYER_VERSION_EXTENSION_ARN
