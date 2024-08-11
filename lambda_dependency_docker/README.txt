@@ -25,7 +25,7 @@ docker rm dependency-function
 # 上傳 Docker Image 到 AWS ECR 
 AWS_REGION=XXXXX
 ECR_REPO_NAME="lambda-docker-ecr-repo"
-ECR_URL="659104334423.dkr.ecr.us-east-2.amazonaws.com"
+ECR_URL=XXXXX
 ECR_REPO_URL=${ECR_URL}/${ECR_REPO_NAME}
 echo $ECR_REPO_URL
 
