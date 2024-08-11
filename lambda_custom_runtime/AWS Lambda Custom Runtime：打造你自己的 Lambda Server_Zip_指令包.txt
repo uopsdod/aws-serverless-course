@@ -1,0 +1,54 @@
+# 建立 IAM Role 
+ - name: "lambda-shell-custom-runtime-role"
+ - permission: AWSLambdaBasicExecutionRole
+ - get the arn: 
+   - example: "arn:aws:iam::659104334423:role/lambda-shell-custom-runtime-role"
+
+# 建立 EC2 instance 
+ - name: "lambda-shell-custom-runtime-ec2" 
+ - no keypair 
+
+# 安裝 git
+sudo yum install -y git 
+
+# 設定 AWS Credential 
+aws configure 
+ - key id: 
+ - key: 
+
+# 下載 git 專案
+git clone https://github.com/uopsdod/aws-serverless-course.git
+cd aws-serverless-course/lambda_custom_runtime_shell
+
+# 查看 runtime
+cat bootstrap
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell/bootstrap
+
+# 查看 function handler
+cat function.sh
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell/function.sh
+
+# 設定執行權限
+chmod 755 function.sh bootstrap
+
+# 建立 Lambda function 
+zip function.zip function.sh bootstrap
+AWS_ACCOUNT=659104334423
+aws lambda create-function --function-name bash-runtime \
+--zip-file fileb://function.zip --handler function.handler --runtime provided.al2023 \
+--role arn:aws:iam::${AWS_ACCOUNT}:role/lambda-shell-custom-runtime-role
+
+# 更新 lambda function (optional)
+rm function.zip
+zip function.zip function.sh bootstrap
+aws lambda update-function-code --function-name bash-runtime --zip-file fileb://function.zip
+
+# 使用 the lambda function 
+aws lambda invoke --function-name bash-runtime --payload '{"type":"good_req"}' handler_response.txt --cli-binary-format raw-in-base64-out
+
+cat handler_response.txt 
+
+aws lambda invoke --function-name bash-runtime --payload '{"type":"runtime_exception"}' handler_response.txt --cli-binary-format raw-in-base64-out
+
+cat handler_response.txt 
+

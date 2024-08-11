@@ -1,0 +1,14 @@
+
+Github: https://github.com/uopsdod/aws-serverless-course
+
+單元名稱：實作演練 ➤ Lambda Cold Start 進階改善方案 I - Provisioned Concurrency
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_provisioned_zip
+
+單元名稱：實作演練 ➤ Lambda Cold Start 進階改善方案 II - SnapStart
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart
+
+單元名稱：實戰演練 ➤ Lambda Cold Start 進階改善方案 II - SnapStart Hooks
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart_hook
+
+單元名稱：實戰演練 ➤ AWS Lambda Custom Runtime：打造你自己的 Lambda Server - ZIP 模式
+目錄位置：

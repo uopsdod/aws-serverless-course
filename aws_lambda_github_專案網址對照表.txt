@@ -1,0 +1,33 @@
+
+Github: https://github.com/uopsdod/aws-serverless-course
+
+單元名稱：實戰演練 ➤ 建立共用 Linux EC2 實作環境
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/ec2_linux
+
+單元名稱：實戰演練 ➤  AWS Lambda 部署：ZIP 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_simple_zip
+
+單元名稱：實戰演練 ➤  AWS Lambda 部署：ZIP 模式 + 第三方套件
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_dependency_zip
+
+單元名稱：實戰演練 ➤  AWS Lambda Layer 使用：ZIP 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_layer_zip
+
+單元名稱：實戰演練 ➤  AWS Lambda Extension 使用：ZIP 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_extension_zip
+
+單元名稱：實戰演練 ➤  AWS Lambda 部署：Docker 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_simple_docker
+
+單元名稱：實戰演練 ➤  AWS Lambda 部署：Docker 模式 + 第三方套件
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_dependency_docker
+
+單元名稱：實戰演練 ➤  AWS Lambda Layer 使用：Docker 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_layer_docker
+
+單元名稱：實戰演練 ➤  AWS Lambda Extension 使用：Docker 模式
+指令包網址：https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_extension_docker/README.txt
+
+
+
+

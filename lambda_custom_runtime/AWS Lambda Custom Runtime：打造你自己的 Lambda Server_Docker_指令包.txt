@@ -1,0 +1,114 @@
+
+# 建立 lambda role 
+ - target: lambda
+ - permission: AWSLambdaBasicExecutionRole
+ - name: "lambda-shell-custom-runtime-role"
+ - get the arn: 
+   - example: "arn:aws:iam::659104334423:role/lambda-shell-custom-runtime-role"
+
+# 建立 ec2 instance 
+ - name: "lambda-shell-custom-runtime-ec2" 
+ - no keypair 
+
+# 安裝 git
+sudo yum install -y git 
+
+# 設定 aws credential 
+aws configure 
+ - key id: 
+ - key: 
+
+-----
+
+# 下載專案 git project
+cd ~
+rm -rf aws-serverless-course
+git clone https://github.com/uopsdod/aws-serverless-course.git
+cd aws-serverless-course/lambda_custom_runtime_shell_docker
+
+# 安裝並啟動 docker
+sudo yum install docker -y
+sudo docker --version
+sudo service docker start
+sudo service docker status | grep Active
+
+# 允許 ec2-user 使用 docker 指令 (Linux) 
+ls -l /var/run/docker.sock
+sudo usermod -aG docker $USER && newgrp docker
+docker ps
+
+# 查看 lambda runtime 檔案
+cat bootstrap
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/bootstrap
+
+# 查看 lambda function handler 檔案
+cat function.sh
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/function.sh
+
+# 查看 Dockerfile 檔案
+cat Dockerfile 
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/Dockerfile
+
+# 建立 Docker Image 
+docker build -t custom-lambda-docker-001 --no-cache .
+docker images
+
+# 啟動 Docker 容器
+docker run -d --name custom-lambda-docker-001 -p 9000:8080 \
+--entrypoint /usr/local/bin/aws-lambda-rie \
+custom-lambda-docker-001 /bin/bootstrap function.handler
+docker container ls
+
+# 本地測試 
+curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"type":"good_req"}'
+curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"type":"runtime_exception"}'
+
+# 關閉 Docker 容器
+docker stop custom-lambda-docker-001
+docker rm /custom-lambda-docker-001
+
+# 建立 AWS ECR Repo 
+aws ecr create-repository --repository-name lambda-docker-custom-runtime-ecr-repo
+  - get the URI: 
+    - example: "659104334423.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-custom-runtime-ecr-repo"
+
+# 上傳 Docker Image 到 AWS ECR 
+AWS_REGION="us-east-2"
+ECR_REPO_NAME="lambda-docker-custom-runtime-ecr-repo"
+ECR_URL="659104334423.dkr.ecr.us-east-2.amazonaws.com"
+ECR_REPO_URL=${ECR_URL}/${ECR_REPO_NAME}
+echo $ECR_REPO_URL
+
+# 得到 ECR 上傳權限
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
+
+# 上傳本地 Docker Image
+docker images
+docker tag custom-lambda-docker-001:latest "${ECR_REPO_URL}:latest"
+docker images
+docker push "${ECR_REPO_URL}:latest"
+
+# 建立 Lambda function 
+AWS_ACCOUNT=659104334423
+LAMBDA_FUNC_NAME="docker-bash-runtime"
+aws lambda create-function  \
+--function-name $LAMBDA_FUNC_NAME  \
+--role arn:aws:iam::${AWS_ACCOUNT}:role/lambda-shell-custom-runtime-role \
+--code ImageUri=$ECR_REPO_URL:latest \
+--package-type Image
+
+# 更新 Lambda function (optional)
+aws lambda update-function-code \
+--function-name $LAMBDA_FUNC_NAME \
+--image-uri $ECR_REPO_URL:latest
+
+# 使用 the lambda function 
+aws lambda invoke --function-name $LAMBDA_FUNC_NAME --payload '{"type":"good_req"}' handler_response.txt --cli-binary-format raw-in-base64-out
+
+cat handler_response.txt 
+
+aws lambda invoke --function-name $LAMBDA_FUNC_NAME --payload '{"type":"runtime_exception"}' handler_response.txt --cli-binary-format raw-in-base64-out
+
+cat handler_response.txt 
+
+
