@@ -15,6 +15,7 @@
 
 # 更新程式碼 
 - code: lambda_function_with_db.py
+https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_provisioned_zip/lambda_function_with_db.py
 
 # 測試 Lambda (Console)
 - 切換到 alias 
