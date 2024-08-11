@@ -11,4 +11,8 @@ Github: https://github.com/uopsdod/aws-serverless-course
 目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart_hook
 
 單元名稱：實戰演練 ➤ AWS Lambda Custom Runtime：打造你自己的 Lambda Server - ZIP 模式
-目錄位置：
+目錄位置：https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime/AWS%20Lambda%20Custom%20Runtime%EF%BC%9A%E6%89%93%E9%80%A0%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84%20Lambda%20Server_Zip_%E6%8C%87%E4%BB%A4%E5%8C%85.txt
+
+單元名稱：實戰演練 ➤ AWS Lambda Custom Runtime：打造你自己的 Lambda Server - Docker 模式
+目錄位置：https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime/AWS%20Lambda%20Custom%20Runtime%EF%BC%9A%E6%89%93%E9%80%A0%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84%20Lambda%20Server_Docker_%E6%8C%87%E4%BB%A4%E5%8C%85.txt
+
