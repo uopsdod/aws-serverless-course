@@ -1,19 +1,20 @@
 
-# 建立 lambda role 
+
+# 建立 lambda role (已於上個單元建立)
  - target: lambda
  - permission: AWSLambdaBasicExecutionRole
  - name: "lambda-shell-custom-runtime-role"
  - get the arn: 
    - example: "arn:aws:iam::659104334423:role/lambda-shell-custom-runtime-role"
 
-# 建立 ec2 instance 
+# 建立 ec2 instance (已於上個單元建立)
  - name: "lambda-shell-custom-runtime-ec2" 
  - no keypair 
 
-# 安裝 git
+# 安裝 git (已於上個單元建立)
 sudo yum install -y git 
 
-# 設定 aws credential 
+# 設定 aws credential (已於上個單元建立)
 aws configure 
  - key id: 
  - key: 
@@ -39,15 +40,15 @@ docker ps
 
 # 查看 lambda runtime 檔案
 cat bootstrap
-https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/bootstrap
+- https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/bootstrap
 
 # 查看 lambda function handler 檔案
 cat function.sh
-https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/function.sh
+- https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/function.sh
 
 # 查看 Dockerfile 檔案
 cat Dockerfile 
-https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/Dockerfile
+- https://github.com/uopsdod/aws-serverless-course/blob/main/lambda_custom_runtime_shell_docker/Dockerfile
 
 # 建立 Docker Image 
 docker build -t custom-lambda-docker-001 --no-cache .
