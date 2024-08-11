@@ -30,7 +30,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/lambda_snapstart_hook
 - aws s3 mb "s3://${S3_BUCKET}"
 
 # 上傳 Jar 檔案到 S3 bucket 
-aws s3 cp $JAR_PATH "s3://${S3_BUCKET}/${JAR_PATH}" 
+aws s3 cp "$JAR_PATH" "s3://${S3_BUCKET}/${JAR_PATH}" 
 
 # 複製 S3 Jar URL 
 - example: "https://lambda-snapstart-oinpjniokiuhiu.s3.us-east-2.amazonaws.com/target/function-sample-aws-0.0.1-SNAPSHOT-aws.jar"
