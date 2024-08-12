@@ -69,7 +69,7 @@ click [item03] -> Action -> delete item
  - 查看 Read Capacity 用量
  - 限制: 無法查詢 is_vip 欄位 
 
-# 搜尋 Scqn Items 
+# 搜尋 Scan Items 
  - 查看 Read Capacity 用量
 
 # 刪除 Table
