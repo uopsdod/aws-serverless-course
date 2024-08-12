@@ -18,7 +18,7 @@
  - go to API 
  - go to API settings 
  - click Edit 
- - modify API key source to Header first  
+ - modify/confirm API key source uses 'Header'   
  
 # 設定 API Method 使用 API Key 
  - go to api
