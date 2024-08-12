@@ -1,0 +1,12 @@
+
+Github: https://github.com/uopsdod/aws-serverless-course
+
+單元名稱：實作演練 ➤ 建立共用 Linux EC2 實作環境
+單元名稱：實作演練 ➤ AWS DynamoDB Table 建立
+單元名稱：實作演練 ➤ AWS DynamoDB 3 大寫入操作：PutItem | UpdateItem | DeleteItem
+單元名稱：實作演練 ➤ AWS DynamoDB 3 大讀取操作：GetItem | Query | Scan
+單元名稱：實作演練 ➤ AWS DynamoDB LSI 建立與使用
+單元名稱：實作演練 ➤ AWS DynamoDB GSI 建立與使用
+單元名稱：實作演練 ➤ AWS DynamoDB DAX 記憶體快取：優化讀取效能
+單元名稱：實作演練 ➤ AWS DynamoDB ACID 交易操作：保障資料同步
+指令包：https://github.com/uopsdod/aws-serverless-course/tree/main/dynamodb_demo
