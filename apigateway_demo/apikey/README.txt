@@ -2,6 +2,7 @@
 # 建立 Usage Plan 
  - name: "usage-plan-user-profile"
  - throttling: 1, 1 
+ - quota: 5 Per day
 
 # 連結 API Key 到 API Stage 
 
