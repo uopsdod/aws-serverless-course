@@ -12,9 +12,10 @@
 sudo yum install -y git 
 
 # 設定 AWS Credential 
-aws configure 
- - key id: 
- - key: 
+- 選擇 Admin (擁有 AdministratorAccess)
+- aws configure 
+   - key id: 
+   - key: 
 
 # 下載 git 專案
 git clone https://github.com/uopsdod/aws-serverless-course.git
@@ -33,7 +34,7 @@ chmod 755 function.sh bootstrap
 
 # 建立 Lambda function 
 zip function.zip function.sh bootstrap
-AWS_ACCOUNT=659104334423
+AWS_ACCOUNT=XXXXX
 aws lambda create-function --function-name bash-runtime \
 --zip-file fileb://function.zip --handler function.handler --runtime provided.al2023 \
 --role arn:aws:iam::${AWS_ACCOUNT}:role/lambda-shell-custom-runtime-role
