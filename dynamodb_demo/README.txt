@@ -118,7 +118,7 @@ python3 dynamodb_07_get_item.py
 # 搜尋 Query Items
 python3 dynamodb_08_query_item.py
 
-# 搜尋 Scqn Items 
+# 搜尋 Scan Items 
 python3 dynamodb_09_scan_item.py
 
 # 刪除 Table (optional)
