@@ -1,3 +1,5 @@
+注意：AWS Console 需切換到 Ohio (us-east-2) Region
+
 ===== EC2 Linux 共用環境 =====
 # 建立 VPC 
 - select "VPC and more"
