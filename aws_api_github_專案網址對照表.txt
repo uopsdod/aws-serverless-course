@@ -1,0 +1,20 @@
+
+Github: https://github.com/uopsdod/aws-serverless-course
+
+單元名稱：實作演練 ➤ 建立共用 Linux EC2 實作環境
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/ec2_linux
+
+單元名稱：實作演練 ➤ AWS API Gateway & Lambda 整合運用
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/basic
+
+單元名稱：實作演練 ➤ AWS API Gateway 流量管控：Throttling
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/throttle
+
+單元名稱：實作演練 ➤ AWS API Gateway 權限管理：Lambda Authorizer
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/authorizer_lambda
+
+單元名稱：實作演練 ➤ AWS API Gateway 建立付費使用型 API - Header 模式
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/apikey
+
+單元名稱：實作演練 ➤ AWS API Gateway 建立付費使用型 API - Lambda Authorizer 模式
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/apigateway_demo/apikey_authorizer
