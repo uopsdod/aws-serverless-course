@@ -173,8 +173,8 @@ python3 dynamodb_06_delete_table_with_lsi.py
  - policy name: "DAXFullAccess-dax-to-dynamodb-role-001"
 - Parameter Group
  - name: "dax-parameter-group-001"
- - TTL: Item time-to-live (TTL) set to 1 minute
- - TTL: Query time-to-live (TTL) set to 1 minute 
+ - TTL: Item time-to-live (TTL) set to 5 minute
+ - TTL: Query time-to-live (TTL) set to 5 minute 
 
 ===== 使用 DAX - Cache 機制示範 ===== 
 
@@ -190,7 +190,7 @@ pip3 install amazon-dax-client
 # 設定 DAX Endpoint 環境參數 
 DAX_ENDPOINT='daxs://dax-cluster-demo-001.pmu19g.dax-clusters.us-east-2.amazonaws.com'
 
-# 建立 Table (no need anymore, cuz I didn't delete tables before at all)
+# 建立 Table (If deleted before, recreate them)
 python3 dynamodb_01_create_table.py
 python3 dynamodb_06_add_bulk_items_1000.py $DAX_ENDPOINT
 
