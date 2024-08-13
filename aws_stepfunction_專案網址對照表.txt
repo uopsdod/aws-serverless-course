@@ -7,7 +7,7 @@ Github: https://github.com/uopsdod/aws-serverless-course
 單元名稱：實作演練 ➤ AWS Task State Req/Res 模式：多種圖檔平行輸出
 目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state
 
-單元名稱：XXXXX
+單元名稱：【進階】實作演練 ➤ Job 模式：訓練 AI Machine Learning 模型 (SageMaker) 1
 目錄位置：XXXXX
 
 單元名稱：XXXXX
