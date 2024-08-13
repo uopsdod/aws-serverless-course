@@ -42,7 +42,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
   "image_size_target.$": "$.image_size_target_1"
 }
 ```
-   - Click Output > enable ResultPath: "$.taskoutput" 
+    - Click Output > enable ResultPath: "$.taskoutput" 
  - Add Pass State 2
    - Click Input > enable Parameters 
 ```
@@ -50,7 +50,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
   "image_size_target.$": "$.image_size_target_2"
 }
 ```
-   - Click Output > enable ResultPath: "$.taskoutput" 
+    - Click Output > enable ResultPath: "$.taskoutput" 
  - Add Pass State 3
    - Click Input > enable Parameters 
 ```
@@ -58,7 +58,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
   "image_size_target.$": "$.image_size_target_3"
 }
 ```
-   - Click Output > enable ResultPath: "$.taskoutput" 
+    - Click Output > enable ResultPath: "$.taskoutput" 
  - Add Lambdas
    - name: "image-resizer-001"
    - pick "lambda-image-resizer"
