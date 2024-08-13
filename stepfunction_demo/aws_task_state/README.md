@@ -83,8 +83,10 @@ Input
 ```
 
 # 檢查 S3 Resized 圖片結果
+- Go to S3 Bucket and check
 
 # 查看 Step Function State Machine Input & Output
+- Go to Step Function State Machine and check
 
 # 資源清理 
  Lambda Function 
