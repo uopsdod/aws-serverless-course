@@ -2,6 +2,9 @@
 # 專案目錄 
 https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state_job_machine_learning
 
+# 確認/切換 AWS Region
+ - Virginia (us-east-1)
+
 # 建立 S3 bucket
  - name: "sagemaker-model-data-iqjdavibsdavsdfvgb"
 
@@ -9,6 +12,8 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - create prefix: "csv"
  - 解說 train.csv
  - 上傳 train.csv & test.csv
+  - train.csv: https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_job_machine_learning/train.csv
+  - test.csv: https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_job_machine_learning/test.csv
 
 # 建立 IAM Role
  - use case: SageMaker 
@@ -16,19 +21,22 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - policy: AmazonSageMakerFullAccess (added by default), AmazonS3FullAccess 
 
 # 啟動 SageMaker Notebook 
+ - Go to SageMaker > Notebooks > Create notebook instance
  - instance name: "train-model-endpoint-predict-notebook"
  - instance type: "ml.t3.medium"
  - role: "train-model-endpoint-predict-role"
+ - (wait for 5 minutes)
+ - Open Jupyter Notebook
 
 # 上傳 ipynb 檔案
  - file: "xgboost-001.ipynb"
+  - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_job_machine_learning/xgboost-001.ipynb
  - type: "conda_python3"
- - (wait for 5 min ...)
- - click 'Open Jupyter'
-
-# 執行 ipynb 
  - update S3 bucket arn 
  - update iam role 
+
+# 執行 ipynb 
+ - click Run button one by one 
 
 ====
 [use step function]
