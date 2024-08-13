@@ -43,9 +43,6 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 }
 ```
    - Click Output > enable ResultPath: "$.taskoutput" 
- - Add Lambdas
-   - name: "image-resizer-001"
-   - pick "lambda-image-resizer"
  - Add Pass State 2
    - Click Input > enable Parameters 
 ```
@@ -54,9 +51,6 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 }
 ```
    - Click Output > enable ResultPath: "$.taskoutput" 
- - Add Lambdas
-   - name: "image-resizer-001"
-   - pick "lambda-image-resizer"
  - Add Pass State 3
    - Click Input > enable Parameters 
 ```
@@ -68,10 +62,16 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - Add Lambdas
    - name: "image-resizer-001"
    - pick "lambda-image-resizer"
+ - Add Lambdas
+   - name: "image-resizer-002"
+   - pick "lambda-image-resizer"
+ - Add Lambdas
+   - name: "image-resizer-003"
+   - pick "lambda-image-resizer"   
 
 # 測試 State Machine 
 Input 
-=====
+```
 {
   "bucket_name": "image-resizer-icauhdscoiciauhodsiu",
   "object_key": "aws_icon.jpeg",
@@ -79,7 +79,7 @@ Input
   "image_size_target_2": 500,
   "image_size_target_3": 700
 }
-====
+```
 
 # 資源清理 
  Lambda Function 
