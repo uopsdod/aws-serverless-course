@@ -7,6 +7,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 
 # 上傳 S3 File 
  - file: "aws_icon.png"
+ - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_icon.png
 
 # 建立 IAM Role 
  - use case: Lambda 
@@ -23,27 +24,29 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
   - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state/lambda_image_resizer.py
 
 # 新增 Layer for Pillow 套件  
- - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p312-Pillow:2
+ - example: arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p312-Pillow:2
+   - make sure to pick the right aws region 
  - source: https://github.com/keithrozario/Klayers/tree/master/deployments/python3.12
-  - Pillow example: https://api.klayers.cloud/api/v2/p3.12/layers/latest/us-east-1/html 
+   - Pillow example: https://api.klayers.cloud/api/v2/p3.12/layers/latest/us-east-1/html 
+ - add a Layer to the lambda function 
 
 # 建立 State Machine 
  - Add Parallel State 
-  - enable ResultPath & Discard output
+   - enable ResultPath & Discard output
  - Add Another Parallel State 
-  - enable ResultPath & Discard output
+   - enable ResultPath & Discard output
  - Add Pass State 1
-  - name: ""
-  - enable Paramters: 
+   - name: ""
+   - enable Paramters: 
 =====
 {
   "image_size_target.$": "$.image_size_target_1"
 }
 =====
-  - enable ResultPath: "$.taskoutput" 
+   - enable ResultPath: "$.taskoutput" 
  - Add Lambdas
-  - name: "image-resizer-001"
-  - pick "lambda-image-resizer"
+   - name: "image-resizer-001"
+   - pick "lambda-image-resizer"
  - Add Pass State 2
  - Add Pass State 3 
 
