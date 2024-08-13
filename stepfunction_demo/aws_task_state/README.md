@@ -6,8 +6,8 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - name: "image-resizer-icauhdscoiciauhodsiu"
 
 # 上傳 S3 File 
- - file: "aws_icon.png"
- - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_icon.png
+ - file: "aws_icon.jpeg"
+ - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_icon.jpeg
 
 # 建立 IAM Role 
  - use case: Lambda 
@@ -81,6 +81,10 @@ Input
   "image_size_target_3": 700
 }
 ```
+
+# 檢查 S3 Resized 圖片結果
+
+# 查看 Step Function State Machine Input & Output
 
 # 資源清理 
  Lambda Function 
