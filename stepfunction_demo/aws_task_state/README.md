@@ -32,18 +32,17 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 
 # 建立 State Machine 
  - Add Parallel State 
-   - enable ResultPath & Discard output
+   - Click Output > enable ResultPath & Discard output
  - Add Another Parallel State 
-   - enable ResultPath & Discard output
+   - Click Output > enable ResultPath & Discard output
  - Add Pass State 1
-   - name: ""
-   - enable Paramters: 
-=====
+   - Click Input > enable Parameters 
+```
 {
   "image_size_target.$": "$.image_size_target_1"
 }
-=====
-   - enable ResultPath: "$.taskoutput" 
+```
+   - Click Output > enable ResultPath: "$.taskoutput" 
  - Add Lambdas
    - name: "image-resizer-001"
    - pick "lambda-image-resizer"
