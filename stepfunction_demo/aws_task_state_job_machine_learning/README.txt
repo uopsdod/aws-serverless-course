@@ -10,6 +10,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 
 # 上傳訓練與測試資料 
  - create prefix: "csv"
+ - click csv folder 
  - 解說 train.csv
  - 上傳 train.csv & test.csv
   - train.csv: https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_job_machine_learning/train.csv
