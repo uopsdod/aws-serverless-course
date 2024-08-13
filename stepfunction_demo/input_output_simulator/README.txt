@@ -128,7 +128,7 @@
 =====
 
 # ResultPath 
- - $.mytaskResult
+ - $.myTaskResult
 
 =====
 {
@@ -149,7 +149,7 @@
     ]
   },
   "version": 3,
-  "mytaskResult": {
+  "myTaskResult": {
     "modifiedPayload": {
       "body": {
         "decision": {
@@ -165,7 +165,7 @@
 =====
 
 # OutputPath (like InputPath for input)
- - "$"
+ - $
 =====
 {
   "employee": {
@@ -185,7 +185,7 @@
     ]
   },
   "version": 3,
-  "mytaskResult": {
+  "myTaskResult": {
     "modifiedPayload": {
       "body": {
         "decision": {
@@ -201,7 +201,7 @@
 =====
 
 # OutputPath (like InputPath for input)
- - "$.employee"
+ - $.employee
 =====
 {
   "jobs": [
@@ -222,7 +222,7 @@
 =====
 
 # OutputPath (like InputPath for input)
- - "$.myTaskResult.modifiedPayload"
+ - $.myTaskResult.modifiedPayload
 =====
 {
   "jobs": [

@@ -2,7 +2,7 @@
 Github: https://github.com/uopsdod/aws-serverless-course
 
 單元名稱：實作演練 ➤ State Input & Output 瘦身大計畫：Data flow simulator
-目錄位置：XXXXX
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/input_output_simulator
 
 單元名稱：XXXXX
 目錄位置：XXXXX
