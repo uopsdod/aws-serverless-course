@@ -71,6 +71,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
 
 # 測試 State Machine 
 Input 
+ - replace the bucket_name accordingly
 ```
 {
   "bucket_name": "image-resizer-icauhdscoiciauhodsiu",
