@@ -47,7 +47,27 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
    - name: "image-resizer-001"
    - pick "lambda-image-resizer"
  - Add Pass State 2
- - Add Pass State 3 
+   - Click Input > enable Parameters 
+```
+{
+  "image_size_target.$": "$.image_size_target_2"
+}
+```
+   - Click Output > enable ResultPath: "$.taskoutput" 
+ - Add Lambdas
+   - name: "image-resizer-001"
+   - pick "lambda-image-resizer"
+ - Add Pass State 3
+   - Click Input > enable Parameters 
+```
+{
+  "image_size_target.$": "$.image_size_target_3"
+}
+```
+   - Click Output > enable ResultPath: "$.taskoutput" 
+ - Add Lambdas
+   - name: "image-resizer-001"
+   - pick "lambda-image-resizer"
 
 # 測試 State Machine 
 Input 
