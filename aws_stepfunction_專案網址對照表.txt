@@ -20,7 +20,7 @@ Github: https://github.com/uopsdod/aws-serverless-course
 目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/activity_task_state
 
 單元名稱：實作演練 ➤ AWS Step Function 錯誤處理：修復 API 網路延遲
-目錄位置：XXXXX
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/error_and_retry
 
 單元名稱：實作演練 ➤ AWS Step Function Map 巨量資料平行處理
 目錄位置：XXXXX
