@@ -37,7 +37,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - name: "lambda-order-worker-001"
  - runtime: python 
  - role: "role-order-worker-001"
- - Go to General > Timeout: 5 min 
+ - Go to Configuration > General Configuration > Timeout: 5 min 
 
 # 更新 Lambda 程式碼
  - code: "order_worker.py" 
