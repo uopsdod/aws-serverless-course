@@ -4,7 +4,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/map
 
 # 建立 S3 Bucket 
  - name: "step-function-map-gjcoidjvosid"
- - prefix: "images
+ - prefix: "images"
  - upload 10 images: "pangolin_XXX.png"
 
 # 建立 IAM Role 
@@ -65,10 +65,11 @@ Create Lambda State inside Map State
   - note: see the status of all execution
   - note: click one of them to see execution input/ouput  
  - check S3 bucket 
+  - check "resized/images" folder 
 
 # 上傳 S3 Objects 
  - name: "step-function-map-gjcoidjvosid"
- - prefix: "images
+ - prefix: "images"
  - upload 1000 images 
 
 # 執行 state machine 
@@ -83,8 +84,11 @@ Create Lambda State inside Map State
   - note: see the status of all execution
   - note: click one of them to see execution input/ouput  
  - check S3 bucket 
+  - check "resized/images" folder 
 
 # 資源清理 
  - Step Function State Machine 
+ - Lambda Function 
+ - S3 Bucket 
  - IAM Role 
  
