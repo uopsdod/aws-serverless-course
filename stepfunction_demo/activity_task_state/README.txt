@@ -31,7 +31,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/act
  - pick role: "role-for-lambda-activity-worker"
  - configurtion >> general configuration >> timeout: 3 min 
  - code: activity_worker.py 
-  - zoom in for recording (*****)
+  - code link: https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/activity_task_state/activity_worker.py
   - update Activity Arn 
    click state >> Definition >> Activity Arn 
   - click 'Deploy'
