@@ -64,10 +64,10 @@ aws s3 cp "$JAR_PATH" "s3://${S3_BUCKET}/${JAR_PATH}"
   - Restore Duration: 0.6s
   - (Handler) Duration: 3s
 - 查看 log 
-  - 1st: 先看到 "afterRestore hook"
+  - 1st: 先看到 "after-restore hook"
   - 2nd: 查看 UUID
 - 再執行一次 Test, 查看 UUID
-  - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "afterRestore hook"
+  - 3rd: 前往 CloudWatch Log, 去看到 "checkpoint hook" > 再看一次 "after-restore hook"
 
 # 資源清理 
 - Lambda Function 
