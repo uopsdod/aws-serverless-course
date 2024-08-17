@@ -37,9 +37,11 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - name: "lambda-order-worker-001"
  - runtime: python 
  - role: "role-order-worker-001"
+ - Go to General > Timeout: 5 min 
 
 # 更新 Lambda 程式碼
  - code: "order_worker.py" 
+   - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_callback_sqs/order_worker.py
 
 # 建立 Lambda Trigger 
  - sqs: "order-queue-001"
