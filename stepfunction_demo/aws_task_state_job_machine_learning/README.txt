@@ -76,6 +76,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  4. SageMaker - CreateEndpoint
   - API parameters: "api_create_endpoint"
  5. Config >> update IAM Role 
+  - role: "train-model-endpoint-predict-role-for-step"
 
 # 執行 state machine  
  - (wait for it to create?)
@@ -91,6 +92,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws
  - runtime: python 
  - role: "predict-role-for-lambda"
  - code: "predict_lambda.py"
+   - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/aws_task_state_job_machine_learning/predict_lambda.py
  - click 'Deploy'
 
 # 測試 lambda function 01
