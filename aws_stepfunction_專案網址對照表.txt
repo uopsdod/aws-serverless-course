@@ -16,9 +16,12 @@ Github: https://github.com/uopsdod/aws-serverless-course
 單元名稱：實作演練 ➤ Callback 模式：等待外包廠商供貨 (SQS)
 目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/aws_task_state_callback_sqs
 
-單元名稱：XXXXX
+單元名稱：實作演練 ➤ Activity 模式：等待去買飲料的同事 Code Review (EventBridge)
+目錄位置：https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/activity_task_state
+
+單元名稱：實作演練 ➤ AWS Step Function 錯誤處理：修復 API 網路延遲
 目錄位置：XXXXX
 
-單元名稱：XXXXX
+單元名稱：實作演練 ➤ AWS Step Function Map 巨量資料平行處理
 目錄位置：XXXXX
 
