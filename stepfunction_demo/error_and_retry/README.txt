@@ -13,10 +13,11 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/err
  - role: "role-network-delay-001"
 
 # 設定 Lambda 
- - Configuration > General Configuration > Timeout: 5 minutes  
+ - Configuration > General Configuration > Timeout > Enter TimeoutSeconds: 5 minutes  
 
 # 更新 Lambda 程式碼 
  - code: "lambda_network_delay.py"
+   - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/error_and_retry/lambda_network_delay.py
  - click 'Deploy'
 
 # 建立 State Machine 
@@ -27,9 +28,11 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/err
  - Create
 
 # 測試 State Machine 
- - 測出一個 OK
+ - Start Execution
+  - 測出一個 OK
   - click 'Events'
- - 測出一個 Timeout 
+ - Start Execution
+  - 測出一個 Timeout 
   - click 'Events'
   - expand 'Cause'  
 
@@ -39,11 +42,12 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/stepfunction_demo/err
    - Add New a Retrier: States.Timeout 
 
 # 測試 State Machine 
- - 查看 Events 
+ - 查看 Events > 出現 Retry 
 
 # 示範 Custom Error 
 # 更新 Lambda 程式碼 
  - code: "lambda_custom_error.py"
+   - https://github.com/uopsdod/aws-serverless-course/blob/main/stepfunction_demo/error_and_retry/lambda_custom_error.py
 
 # 測試 State Machine 
  - 查看 Events 
