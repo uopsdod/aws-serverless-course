@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+export const handler = async (event) => {
     
     for (var i = 0; i < event.Records.length ; i++) {
         let record = event.Records[i]
