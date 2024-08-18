@@ -15,7 +15,7 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/sqs
  - runtime: NodeJS 
  - role: "role-for-sqs-lambda"
  - Click Configuration > General Configuration > Timeout: 20 seconds 
- - update code: https://github.com/uopsdod/aws-serverless-course/blob/main/sqs/sqs_lambda_%E7%A8%8B%E5%BC%8F%E7%A2%BC.txt
+ - update code: https://github.com/uopsdod/aws-serverless-course/blob/main/sqs/sqs_lambda_%E7%A8%8B%E5%BC%8F%E7%A2%BC.js
  - Deploy 
 
 # 建立 SQS Queue 
