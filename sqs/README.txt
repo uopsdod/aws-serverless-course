@@ -103,5 +103,6 @@ https://github.com/uopsdod/aws-serverless-course/tree/main/sqs
 EC2 instance 
 Lambda function 
 SQS queue 
+VPC 
 
 
